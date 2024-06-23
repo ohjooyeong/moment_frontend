@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      // 사용자 정의 클래스 추가
+
+      fontFamily: {
+        pretendard: ["var(--font-pretendard)"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -25,12 +30,33 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#04B8AB",
+          foreground: "#04B8AB",
+          main: "#04B8AB",
+          sub: "#A9EFEB",
         },
+        customBlack: {
+          1: "#161D24",
+          2: "#28303A",
+          3: "#353D49",
+          4: "#4A515A",
+        },
+        customGray: {
+          1: "#656F7C",
+          2: "#A0A6B6",
+          3: "#C5C8CE",
+        },
+        customWhite: {
+          1: "#ffffff",
+          2: "#F2F3F6",
+          3: "#E9EBEE",
+        },
+
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "#FE2E6B",
+          foreground: "#FE2E6B",
+          main: "#FE2E6B",
+          sub: "#FF98B6",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -74,7 +100,38 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }: any) {
+      addUtilities(
+        {
+          ".moment-container::before": {
+            content: '""',
+            left: "50%",
+            transform: "translateX(-288px)",
+            width: "1px",
+            position: "fixed",
+            top: "0px",
+            bottom: "0px",
+            backgroundColor: "#E9EBEE",
+            zIndex: "99999",
+          },
+          ".moment-container::after": {
+            content: '""',
+            right: "50%",
+            transform: "translateX(288px)",
+            width: "1px",
+            position: "fixed",
+            top: "0px",
+            bottom: "0px",
+            backgroundColor: "#E9EBEE",
+            zIndex: "99999",
+          },
+        },
+        ["before", "after"]
+      );
+    },
+  ],
+} satisfies Config;
 
-export default config
+export default config;
