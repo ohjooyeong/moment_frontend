@@ -69,6 +69,7 @@
 @layer base {
   * {
     @apply border-border;
+    letter-spacing: -0.025em;
   }
   body {
     @apply bg-background text-foreground;
