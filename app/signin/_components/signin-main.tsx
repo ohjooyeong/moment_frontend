@@ -1,9 +1,14 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import ImageKakaoLogo from "@/public/assets/image-kakao-logo.svg";
 import ImageGoogleLogo from "@/public/assets/image-google-logo.svg";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const SigninMain = () => {
+  const router = useRouter();
+
   return (
     <div className="flex-col justify-around w-full">
       <div className="flex flex-col justify-center items-center mb-[150px]">
@@ -36,8 +41,11 @@ const SigninMain = () => {
           />
           구글 로그인
         </Button>
-        <Button className="relative bg-secondary hover:bg-[#e42960] w-full rounded-2xl h-[60px] font-semibold text-lg text-customWhite-2 mb-[70px]">
-          로그인
+        <Button
+          className="relative bg-secondary hover:bg-[#e42960] w-full rounded-2xl h-[60px] font-semibold text-lg text-customWhite-2 mb-[70px]"
+          asChild
+        >
+          <Link href={"/signin-second"}>로그인</Link>
         </Button>
       </div>
       <div className="flex absolute bottom-4 left-0 right-0 max-w-xl justify-center">
