@@ -51,15 +51,13 @@ const IntroMain = () => {
   };
 
   return (
-    <>
-      <IntroItem
-        handleChangeIntroStep={handleChangeIntroStep}
-        imgSrc={introMap[introStep].imgSrc}
-        title={introMap[introStep].title}
-        desc={introMap[introStep].desc}
-        step={introStep}
-      />
-    </>
+    <IntroItem
+      handleChangeIntroStep={handleChangeIntroStep}
+      imgSrc={introMap[introStep].imgSrc}
+      title={introMap[introStep].title}
+      desc={introMap[introStep].desc}
+      step={introStep}
+    />
   );
 };
 

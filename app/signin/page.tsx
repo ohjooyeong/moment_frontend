@@ -1,3 +1,9 @@
+import SigninMain from "./_components/signin-main";
+
 export default function SignIn() {
-  return <main></main>;
+  return (
+    <div className="h-screen mx-8 relative flex justify-center items-center">
+      <SigninMain />
+    </div>
+  );
 }
