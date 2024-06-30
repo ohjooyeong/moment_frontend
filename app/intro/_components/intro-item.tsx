@@ -50,7 +50,7 @@ const IntroItem = ({
 
   return (
     <>
-      <div className="flex justify-center items-center flex-col">
+      <div className="flex justify-center items-center flex-col mb-4">
         <Image
           src={imgSrc}
           width={250}

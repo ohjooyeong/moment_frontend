@@ -8,8 +8,9 @@ import { ArrowLeftIcon, LockKeyholeIcon, MailIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-const SigninSecond = () => {
+const SigninMain = () => {
   const router = useRouter();
 
   return (
@@ -111,12 +112,15 @@ const SigninSecond = () => {
         <p className="text-customBlack-1 font-medium text-[14px]/[22px]">
           아직 회원이 아니신가요?
         </p>
-        <p className="text-primary text-[14px]/[22px] font-semibold ml-[6px] underline cursor-pointer">
+        <Link
+          href={"/signup"}
+          className="text-secondary text-[14px]/[22px] font-semibold ml-[6px] underline cursor-pointer"
+        >
           회원가입
-        </p>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default SigninSecond;
+export default SigninMain;

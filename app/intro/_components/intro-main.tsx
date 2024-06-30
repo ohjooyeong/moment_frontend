@@ -45,7 +45,7 @@ const IntroMain = () => {
 
   const handleChangeIntroStep = (step: number) => {
     if (step > 2) {
-      return router.push("/signin");
+      return router.push("/signin-intro");
     }
     setIntroStep(step);
   };

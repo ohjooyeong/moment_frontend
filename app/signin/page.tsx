@@ -1,8 +1,8 @@
-import SigninMain from "./_components/signin-main";
+import SigninMain from "./_components/signin";
 
-export default function SignIn() {
+export default function Signin() {
   return (
-    <div className="h-screen mx-8 relative flex justify-center items-center">
+    <div className="h-screen mx-8 relative flex justify-center">
       <SigninMain />
     </div>
   );
