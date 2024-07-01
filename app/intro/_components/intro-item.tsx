@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 type Props = {
   imgSrc: string;
@@ -50,14 +50,14 @@ const IntroItem = ({
 
   return (
     <>
-      <div className="flex justify-center items-center flex-col mb-4">
+      <div className="flex justify-center items-center flex-col mb-12">
         <Image
           src={imgSrc}
           width={250}
           height={250}
           alt={`intro-${title}`}
           className="mb-11"
-          style={{ height: "250px" }}
+          style={{ height: '250px' }}
         />
         <h2 className="text-[32px]/[44px] mb-3 font-semibold">{title}</h2>
         <p className="text-[14px]/[22px] text-center font-medium">{desc}</p>
@@ -66,7 +66,8 @@ const IntroItem = ({
         <div className="flex gap-4 justify-center mb-3">{renderDotStep()}</div>
         <Button
           onClick={() => handleChangeIntroStep(step + 1)}
-          className="bg-primary-main w-full rounded-2xl text-customWhite-1 h-[60px] font-semibold text-lg"
+          className="bg-primary-main w-full rounded-2xl text-customWhite-1 h-[60px] font-semibold
+            text-lg"
         >
           시작하기
         </Button>

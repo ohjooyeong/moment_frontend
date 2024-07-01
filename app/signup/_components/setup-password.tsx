@@ -4,23 +4,70 @@ import { motion } from 'framer-motion';
 import { CircleXIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { FormDataType } from './signup-main';
+import { cn } from '@/lib/utils';
 
 type Props = {
-  handleClickNext: (step: string) => void;
+  handleClickNext: () => void;
 };
 
+type TPassword = 'none' | 'wrong' | 'right';
+
 const SetupPassword = ({ handleClickNext }: Props) => {
-  const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState(false);
+  const { register, watch } = useFormContext<FormDataType>();
+  const [passwordMessage, setPasswordMessage] = useState('');
+  const [passwordStatus, setPasswordStatus] = useState<TPassword>('none');
+  const [passwordTimer, setPasswordTimer] = useState<NodeJS.Timeout | null>(
+    null,
+  );
+  const [confirmPasswordMessage, setConfirmPasswordMessage] = useState('');
+  const [confirmPasswordTimer, setConfirmPasswordTimer] =
+    useState<NodeJS.Timeout | null>(null);
 
-  const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
+  const password = watch('password');
+  const confirmPassword = watch('confirmPassword');
 
-  const handleDeleteEmail = () => {
-    setEmail('');
-  };
+  const isNext =
+    passwordStatus === 'right' &&
+    confirmPasswordMessage === '' &&
+    confirmPassword;
+
+  useEffect(() => {
+    if (passwordTimer) clearTimeout(passwordTimer);
+    setPasswordTimer(
+      setTimeout(() => {
+        if (password) {
+          const isValidPassword =
+            password.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/.test(password);
+          if (isValidPassword) {
+            setPasswordMessage('알맞은 비밀번호입니다 :)');
+            setPasswordStatus('right');
+          } else {
+            setPasswordMessage('아직 특수문자 포함 8자리가 아니에요.');
+            setPasswordStatus('wrong');
+          }
+        } else {
+          setPasswordMessage('');
+          setPasswordStatus('none');
+        }
+      }, 200),
+    );
+  }, [password]);
+
+  useEffect(() => {
+    if (confirmPasswordTimer) clearTimeout(confirmPasswordTimer);
+    setConfirmPasswordTimer(
+      setTimeout(() => {
+        if (confirmPassword && password !== confirmPassword) {
+          setConfirmPasswordMessage('두 비밀번호가 달라요! 확인해 보시겠어요?');
+        } else {
+          setConfirmPasswordMessage('');
+        }
+      }, 200),
+    );
+  }, [confirmPassword, password]);
 
   return (
     <motion.div
@@ -35,50 +82,59 @@ const SetupPassword = ({ handleClickNext }: Props) => {
         <div className="flex flex-col w-full">
           <div className="flex w-full relative h-[54px]">
             <Input
+              id="password"
               className="pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
                 rounded-none border-0 border-b-2 border-black focus-visible:ring-transparent
                 placeholder:text-customGray-3 placeholder:font-medium pr-10"
               placeholder="test1234@naver.com"
-              type="email"
-              value={email}
-              onChange={handleChangeEmail}
+              type="password"
+              {...register('password', {
+                required: '비밀번호는 필수 입력 항목입니다.',
+              })}
             />
-            {email && (
-              <CircleXIcon
-                className="absolute right-2 top-[6px] cursor-pointer text-customGray-3 w-5 h-5"
-                onClick={handleDeleteEmail}
-              />
+            {passwordMessage && (
+              <p
+                className={cn(
+                  'absolute left-2 bottom-0 text-[12px]/[18px] text-secondary',
+                  passwordStatus === 'right' && 'text-primary',
+                )}
+              >
+                {passwordMessage}
+              </p>
             )}
           </div>
         </div>
       </div>
-      <div className="flex flex-col mt-3">
+      <div className="flex flex-col">
         <h2 className="text-black text-[24px]/[32px] font-semibold mt-[14px] mb-[10px]">
           비밀번호 확인
         </h2>
         <div className="flex flex-col w-full">
           <div className="flex w-full relative h-[54px]">
             <Input
+              id="confirmPassword"
               className="pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
                 rounded-none border-0 border-b-2 border-black focus-visible:ring-transparent
                 placeholder:text-customGray-3 placeholder:font-medium pr-10"
               placeholder="test1234@naver.com"
-              type="email"
-              value={email}
-              onChange={handleChangeEmail}
+              type="password"
+              {...register('confirmPassword', {
+                required: '비밀번호 확인은 필수 입력 항목입니다.',
+              })}
             />
-            {email && (
-              <CircleXIcon
-                className="absolute right-2 top-[6px] cursor-pointer text-customGray-3 w-5 h-5"
-                onClick={handleDeleteEmail}
-              />
+            {confirmPasswordMessage && (
+              <p className="absolute left-2 bottom-0 text-[12px]/[18px] text-secondary">
+                {confirmPasswordMessage}
+              </p>
             )}
           </div>
         </div>
       </div>
       <Button
         className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
-          mt-[12px]"
+          mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
+        disabled={!isNext}
+        onClick={handleClickNext}
       >
         계속하기
       </Button>

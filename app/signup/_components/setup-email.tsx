@@ -1,40 +1,42 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CircleXIcon } from 'lucide-react';
+import { CircleXIcon, CircleCheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-import { useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { FormDataType } from './signup-main';
-import useDeviceType from '@/hooks/use-device-type';
-import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import TimeLeft from './time-left';
+import { useEffect, useState } from 'react';
 
 type Props = {
-  handleClickNext: (step: string) => void;
+  handleClickNext: () => void;
 };
 
 const SetupEmail = ({ handleClickNext }: Props) => {
-  const deviceType = useDeviceType();
   const {
     register,
     watch,
     setValue,
     trigger,
     formState: { errors },
-  } = useForm<FormDataType>();
-
-  const [emailVerify, setEmailVerify] = useState(false);
-  const [verify, setVerify] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(180); // 3분 = 180초
+  } = useFormContext<FormDataType>();
+  const [verificationMessage, setVerificationMessage] = useState('');
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+  const [correctCode, setCorrectCode] = useState('123456');
 
   const email = watch('email');
-  const verifyEmail = watch('verifyEmail');
+  const code = watch('code');
+  const isVerifyEmail = watch('isVerifyEmail');
+  const isVerifyCode = watch('isVerifyCode');
 
   const handleDeleteEmail = () => {
     setValue('email', '');
-    setEmailVerify(false);
+    setValue('isVerifyEmail', false);
+    setValue('code', '');
+    setValue('isVerifyCode', false);
   };
 
   const handleEmailConfirm = async () => {
@@ -42,28 +44,26 @@ const SetupEmail = ({ handleClickNext }: Props) => {
 
     if (!output) return;
 
-    setEmailVerify(output);
-  };
-
-  const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    setValue('isVerifyEmail', output);
   };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 1) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+    if (code && code.length === 6) {
+      if (timer) clearTimeout(timer);
+      setTimer(
+        setTimeout(() => {
+          if (code === correctCode) {
+            setVerificationMessage('성공적으로 인증이 완료됐어요!');
+            setValue('isVerifyCode', true);
+          } else {
+            setVerificationMessage('인증번호를 재확인하세요.');
+          }
+        }, 300),
+      );
+    } else {
+      setVerificationMessage('');
+    }
+  }, [code, correctCode]);
 
   return (
     <motion.div
@@ -81,15 +81,17 @@ const SetupEmail = ({ handleClickNext }: Props) => {
         <div className="flex flex-col w-full">
           <div className="flex w-full relative h-[54px]">
             <Input
+              id="email"
               className={cn(
                 `pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
                 rounded-none border-0 border-b-2 border-black ring-offset-transparent bg-white
                 focus-visible:ring-transparent placeholder:text-customGray-3
                 placeholder:font-medium pr-10`,
-                emailVerify && 'text-primary',
+                isVerifyEmail && 'text-primary',
               )}
+              inputMode="email"
               placeholder="test1234@naver.com"
-              type={deviceType === 'mobile' ? 'email' : 'text'}
+              type={'text'}
               {...register('email', {
                 pattern: {
                   value:
@@ -97,13 +99,13 @@ const SetupEmail = ({ handleClickNext }: Props) => {
                   message: '알맞은 이메일이 아닙니다!',
                 },
               })}
-              readOnly={emailVerify}
+              readOnly={isVerifyEmail}
             />
             {email && (
               <CircleXIcon
                 className={cn(
                   'absolute right-2 top-[6px] cursor-pointer text-customGray-3 w-5 h-5',
-                  emailVerify && 'text-primary',
+                  isVerifyEmail && 'text-primary',
                 )}
                 onClick={handleDeleteEmail}
               />
@@ -116,7 +118,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
           </div>
         </div>
       </div>
-      {emailVerify && (
+      {isVerifyEmail && (
         <motion.div
           initial={{ y: 0, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -129,26 +131,47 @@ const SetupEmail = ({ handleClickNext }: Props) => {
           <div className="flex flex-col w-full">
             <div className="flex w-full relative h-[54px]">
               <Input
-                className="pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
+                id="code"
+                className={cn(
+                  `pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
                   rounded-none border-0 border-b-2 border-black focus-visible:ring-transparent
-                  placeholder:text-customGray-3 placeholder:font-medium pr-10"
+                  placeholder:text-customGray-3 placeholder:font-medium pr-10`,
+                  isVerifyCode && 'text-primary border-primary',
+                )}
                 placeholder="123456"
-                type="email"
+                type="text"
+                inputMode="numeric"
+                {...register('code', {
+                  required: true,
+                  pattern: /^[0-9]{6}$/,
+                  maxLength: 6,
+                })}
+                maxLength={6}
+                readOnly={isVerifyCode}
               />
-              {email && (
+              {!isVerifyCode && email && <TimeLeft />}
+              {isVerifyCode && (
+                <CircleCheckIcon
+                  className={cn(
+                    'absolute right-2 top-[6px] text-primary w-5 h-5',
+                  )}
+                />
+              )}
+              {verificationMessage && (
                 <p
                   className={cn(
-                    'absolute right-2 top-[6px] cursor-pointer text-customGray-1 text-end',
+                    'absolute left-2 bottom-0 text-[12px]/[18px] text-secondary',
+                    isVerifyCode && 'text-primary font-semibold',
                   )}
                 >
-                  {timeLeft === 0 ? '시간 초과' : formatTime(timeLeft)}
+                  {verificationMessage}
                 </p>
               )}
             </div>
           </div>
         </motion.div>
       )}
-      {!emailVerify && (
+      {!isVerifyEmail && (
         <Button
           className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
             mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
@@ -158,12 +181,12 @@ const SetupEmail = ({ handleClickNext }: Props) => {
           이메일 인증
         </Button>
       )}
-      {emailVerify && (
+      {isVerifyEmail && (
         <Button
           className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
             mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
-          onClick={handleEmailConfirm}
-          disabled={!verifyEmail}
+          onClick={handleClickNext}
+          disabled={!isVerifyCode}
         >
           계속하기
         </Button>

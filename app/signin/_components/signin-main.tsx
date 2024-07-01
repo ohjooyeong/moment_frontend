@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
 import PageHeader from '@/components/page-header';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const SigninMain = () => {
   const router = useRouter();
