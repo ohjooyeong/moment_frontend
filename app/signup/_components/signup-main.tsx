@@ -7,6 +7,7 @@ import SetupEmail from './setup-email';
 import SetupPassword from './setup-password';
 import GenericForm from '@/components/genric-form';
 import SetupProfile from './setup-profile';
+import { BirthDrawer } from './drawers-modal/birth-modal-drawer';
 
 export type FormDataType = {
   email: string;
@@ -63,6 +64,7 @@ const SignupMain = () => {
           </Step>
         </Funnel>
       </GenericForm>
+      <BirthDrawer />
     </div>
   );
 };

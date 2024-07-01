@@ -65,7 +65,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
         } else {
           setConfirmPasswordMessage('');
         }
-      }, 200),
+      }, 0),
     );
   }, [confirmPassword, password]);
 
@@ -86,7 +86,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
               className="pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
                 rounded-none border-0 border-b-2 border-black focus-visible:ring-transparent
                 placeholder:text-customGray-3 placeholder:font-medium pr-10"
-              placeholder="test1234@naver.com"
+              placeholder="8자리 이상 특수문자 포함 입력해주세요."
               type="password"
               {...register('password', {
                 required: '비밀번호는 필수 입력 항목입니다.',
@@ -116,7 +116,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
               className="pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
                 rounded-none border-0 border-b-2 border-black focus-visible:ring-transparent
                 placeholder:text-customGray-3 placeholder:font-medium pr-10"
-              placeholder="test1234@naver.com"
+              placeholder="다시 한번 입력해 주세요."
               type="password"
               {...register('confirmPassword', {
                 required: '비밀번호 확인은 필수 입력 항목입니다.',
