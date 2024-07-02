@@ -10,6 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
 import PageHeader from '@/components/page-header';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 const SigninMain = () => {
   const router = useRouter();
@@ -17,9 +18,20 @@ const SigninMain = () => {
     router.back();
   };
 
+  const handleLoginKakao = async () => {
+    try {
+      const { data } = await axios.get(
+        'http://43.203.84.215:8080/oauth2/authorization/kakao',
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex-col justify-around w-full">
-      <PageHeader title="회원가입" handleRoutePrev={handleRoutePrev} />
+      <PageHeader title="로그인" handleRoutePrev={handleRoutePrev} />
       <div className="flex flex-col justify-center gap-5 mb-[60px]">
         <div className="flex flex-col w-full">
           <span className="ml-2 mb-2 text-[14px]/[22px] font-medium text-black">
@@ -84,10 +96,12 @@ const SigninMain = () => {
         로그인
       </Button>
       <div className="flex items-center justify-between gap-[22px]">
+        {/* 카카오 로그인 */}
         <Button
           variant={'outline'}
           className="flex items-center justify-center bg-white w-full rounded-2xl h-[60px]
             font-semibold text-lg text-white mb-[47px] border-customGray-2"
+          onClick={handleLoginKakao}
         >
           <Image
             width={34}
@@ -96,6 +110,7 @@ const SigninMain = () => {
             src={ImageKakaoMainLogo}
           />
         </Button>
+        {/* 구글 로그인 */}
         <Button
           variant={'outline'}
           className="relative bg-white w-full rounded-2xl h-[60px] font-semibold text-lg text-white
