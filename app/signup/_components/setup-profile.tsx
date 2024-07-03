@@ -4,15 +4,13 @@ import { motion } from 'framer-motion';
 import { CircleXIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChangeEvent, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormDataType } from './signup-main';
 import { cn } from '@/lib/utils';
 import { useBirths } from '../_hooks/use-births';
-import { BirthDrawer } from './drawers-modal/birth-modal-drawer';
 
 type Props = {
-  handleClickNext: (step: string) => void;
+  handleClickNext: () => void;
 };
 
 const SetupProfile = ({ handleClickNext }: Props) => {
@@ -20,7 +18,6 @@ const SetupProfile = ({ handleClickNext }: Props) => {
     register,
     watch,
     setValue,
-    trigger,
     formState: { errors },
   } = useFormContext<FormDataType>();
   const births = useBirths();
@@ -28,6 +25,8 @@ const SetupProfile = ({ handleClickNext }: Props) => {
   const userName = watch('userName');
   const gender = watch('gender');
   const birth = watch('birth');
+
+  const isNext = userName.length > 1 && gender && birth;
 
   const handleDeleteUserName = () => {
     setValue('userName', '');
@@ -128,12 +127,16 @@ const SetupProfile = ({ handleClickNext }: Props) => {
           </div>
         </div>
 
-        {/* <Button
-        className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
-          mt-[12px]"
-      >
-        계속하기
-      </Button> */}
+        <div className="flex absolute bottom-4 left-0 right-0 max-w-xl flex-col">
+          <Button
+            onClick={handleClickNext}
+            className="bg-primary-main w-full rounded-2xl text-customWhite-1 h-[60px] font-semibold
+              text-lg disabled:text-customGray-1 disabled:bg-customWhite-3"
+            disabled={!isNext}
+          >
+            회원가입 완료!
+          </Button>
+        </div>
       </motion.div>
     </>
   );

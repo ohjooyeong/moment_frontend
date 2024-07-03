@@ -3,11 +3,16 @@ import { useEffect, useState } from 'react';
 
 const TimeLeft = () => {
   const [timeLeft, setTimeLeft] = useState(180); // 3분 = 180초
+  const [reload, setReload] = useState(false);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
+
+  const handleClickReload = () => {
+    setReload(true);
   };
 
   useEffect(() => {
@@ -24,6 +29,13 @@ const TimeLeft = () => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (reload) {
+      setTimeLeft(180);
+      setReload(false);
+    }
+  }, [reload]);
+
   return (
     <>
       <span
@@ -34,6 +46,7 @@ const TimeLeft = () => {
       <p
         className="absolute right-2 bottom-0 text-[12px]/[18px] text-primary font-medium
           cursor-pointer"
+        onClick={handleClickReload}
       >
         코드 재전송
       </p>

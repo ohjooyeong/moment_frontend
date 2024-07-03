@@ -3,10 +3,11 @@
 import { useRouter } from 'next/navigation';
 import { useFunnel } from '@/hooks/use-funnel';
 import PageHeader from '@/components/page-header';
+import GenericForm from '@/components/genric-form';
 import SetupEmail from './setup-email';
 import SetupPassword from './setup-password';
-import GenericForm from '@/components/genric-form';
 import SetupProfile from './setup-profile';
+import SetupComplteSignup from './setup-complete-signup';
 import { BirthDrawer } from './drawers-modal/birth-modal-drawer';
 
 export type FormDataType = {
@@ -22,14 +23,18 @@ export type FormDataType = {
 };
 
 // 전체 스텝을 담은 배열
-const steps = ['이메일', '비밀번호', '프로필 설정'];
+const steps = ['이메일', '비밀번호', '프로필 설정', '회원가입 완료'];
 
 const SignupMain = () => {
   const router = useRouter();
-  const { Funnel, Step, setStep } = useFunnel(steps[0]);
+  const { Funnel, Step, setStep, currentStep } = useFunnel(steps[0]);
 
   const handleClickPrev = () => {
-    router.back();
+    const index = steps.indexOf(currentStep);
+
+    if (index === 0) return router.back();
+
+    return setStep(steps[index - 1]);
   };
 
   const handleClickNext = (steps: string) => {
@@ -40,7 +45,9 @@ const SignupMain = () => {
 
   return (
     <div className="flex-col justify-around w-full">
-      <PageHeader title="회원가입" handleRoutePrev={handleClickPrev} />
+      {currentStep !== '회원가입 완료' && (
+        <PageHeader title="회원가입" handleRoutePrev={handleClickPrev} />
+      )}
       <GenericForm<FormDataType>
         formOptions={{
           mode: 'onChange',
@@ -48,6 +55,12 @@ const SignupMain = () => {
             isVerifyEmail: false,
             isVerifyCode: false,
             gender: 'female',
+            birth: 2000,
+            userName: '',
+            email: '',
+            code: '',
+            password: '',
+            confirmPassword: '',
           },
         }}
         onSubmit={handleSubmitSignup}
@@ -62,9 +75,12 @@ const SignupMain = () => {
           <Step name="프로필 설정">
             <SetupProfile handleClickNext={() => handleClickNext(steps[3])} />
           </Step>
+          <Step name="회원가입 완료">
+            <SetupComplteSignup />
+          </Step>
         </Funnel>
+        <BirthDrawer />
       </GenericForm>
-      <BirthDrawer />
     </div>
   );
 };
