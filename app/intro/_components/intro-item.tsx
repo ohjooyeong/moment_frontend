@@ -59,8 +59,12 @@ const IntroItem = ({
           className="mb-11"
           style={{ height: '250px' }}
         />
-        <h2 className="text-[32px]/[44px] mb-3 font-semibold">{title}</h2>
-        <p className="text-[14px]/[22px] text-center font-medium">{desc}</p>
+        <h2 className="text-[26px]/[40px] mb-3 font-semibold sm:text-[32px]/[44px]">
+          {title}
+        </h2>
+        <p className="text-[14px]/[22px] text-center font-medium sm:text-[14px]/[20px]">
+          {desc}
+        </p>
       </div>
       <div className="flex absolute bottom-4 left-0 right-0 max-w-xl flex-col">
         <div className="flex gap-4 justify-center mb-3">{renderDotStep()}</div>
