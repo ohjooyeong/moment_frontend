@@ -22,15 +22,16 @@ import { useCallback, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { FormDataType } from '../signup-main';
 import { useFormContext } from 'react-hook-form';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
 
 export function BirthDrawer() {
-  const {
-    register,
-    watch,
-    setValue,
-    trigger,
-    formState: { errors },
-  } = useFormContext<FormDataType>();
+  const { watch, setValue } = useFormContext<FormDataType>();
 
   const births = useBirths();
   const isDesktop = useMediaQuery({ query: '(min-width: 578px)' });
@@ -117,21 +118,21 @@ export function BirthDrawer() {
   }
 
   return (
-    <Drawer open={births.isOpen} onOpenChange={handleOnClose}>
-      <DrawerContent>
-        <DrawerHeader className="border-b pb-3 relative">
-          <DrawerTitle className="text-lg text-center font-medium">
+    <Sheet open={births.isOpen} onOpenChange={handleOnClose}>
+      <SheetContent side="bottom" hideCloseButton>
+        <SheetHeader className="border-b pb-3 relative justify-center">
+          <SheetTitle className="text-lg text-center font-medium">
             출생년도
-          </DrawerTitle>
+          </SheetTitle>
           <p
             className="absolute right-4 text-[14px]/[20px] font-semibold text-primary mt-0"
             onClick={handleOnClose}
           >
             선택
           </p>
-        </DrawerHeader>
+        </SheetHeader>
 
-        <DrawerDescription className="flex min-h-full items-center justify-center text-center w-full">
+        <SheetDescription className="flex min-h-full items-center justify-center text-center w-full">
           <Picker
             value={pickerValue}
             onChange={handlePickerChange}
@@ -158,8 +159,8 @@ export function BirthDrawer() {
               )}
             </Picker.Column>
           </Picker>
-        </DrawerDescription>
-      </DrawerContent>
-    </Drawer>
+        </SheetDescription>
+      </SheetContent>
+    </Sheet>
   );
 }
