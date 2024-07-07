@@ -90,6 +90,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
               {...register('password', {
                 required: '비밀번호는 필수 입력 항목입니다.',
               })}
+              maxLength={30}
             />
             {passwordMessage && (
               <p
@@ -120,6 +121,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
               {...register('confirmPassword', {
                 required: '비밀번호 확인은 필수 입력 항목입니다.',
               })}
+              maxLength={30}
             />
             {confirmPasswordMessage && (
               <p className="absolute left-2 bottom-0 text-[12px]/[18px] text-secondary">

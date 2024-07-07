@@ -9,7 +9,7 @@ import SetupPassword from './setup-password';
 import SetupProfile from './setup-profile';
 import SetupComplteSignup from './setup-complete-signup';
 import { BirthDrawer } from './drawers-modal/birth-modal-drawer';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 export type FormDataType = {
   email: string;

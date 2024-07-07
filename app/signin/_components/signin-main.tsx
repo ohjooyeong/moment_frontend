@@ -11,9 +11,57 @@ import Link from 'next/link';
 import PageHeader from '@/components/page-header';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import GenericForm from '@/components/genric-form';
+import { useForm } from 'react-hook-form';
+import { CircleXIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
+import { setCookie, getCookie } from 'cookies-next';
+
+export type SigninFormDataType = {
+  email: string;
+  password: string;
+};
 
 const SigninMain = () => {
+  const {
+    register,
+    watch,
+    setValue,
+    trigger,
+    formState: { errors },
+  } = useForm<SigninFormDataType>();
+
+  const [focusedEmail, setFocusedEmail] = useState(false);
+  const [focusedPassword, setFocusedPassword] = useState(false);
+  const [isRememberEmail, setIsRememberEmail] = useState(false);
+
   const router = useRouter();
+
+  const email = watch('email');
+
+  const handleDeleteEmail = () => {
+    setValue('email', '');
+  };
+
+  const toggleFocusedEmail = (status: 'FOCUS' | 'BLUR') => {
+    if (status === 'FOCUS') {
+      setFocusedEmail(true);
+    }
+    if (status === 'BLUR') {
+      setFocusedEmail(false);
+    }
+  };
+
+  const toggleFocusedPassword = (status: 'FOCUS' | 'BLUR') => {
+    if (status === 'FOCUS') {
+      setFocusedPassword(true);
+    }
+    if (status === 'BLUR') {
+      setFocusedPassword(false);
+    }
+  };
+
   const handleRoutePrev = () => {
     router.back();
   };
@@ -29,72 +77,163 @@ const SigninMain = () => {
     }
   };
 
+  const handleSubmitSignup = async () => {
+    const emailOutput = await trigger('email');
+    if (!emailOutput) return;
+
+    const passwordOutput = await trigger('password');
+    if (!passwordOutput) return;
+    if (isRememberEmail) {
+      setCookie('rememberEmail', email);
+    } else {
+      setCookie('rememberEmail', '');
+    }
+  };
+
+  useEffect(() => {
+    const getRememberEmail = getCookie('rememberEmail');
+    if (getRememberEmail) {
+      setIsRememberEmail(true);
+      setValue('email', getRememberEmail.toString());
+    }
+  }, []);
+
   return (
     <div className="flex-col justify-around w-full">
       <PageHeader title="로그인" handleRoutePrev={handleRoutePrev} />
-      <div className="flex flex-col justify-center gap-5 mb-[60px]">
-        <div className="flex flex-col w-full">
-          <span className="ml-2 mb-2 text-[14px]/[22px] font-medium text-black">
-            이메일
-          </span>
-          <div className="flex relative w-full">
-            <Input
-              className="pl-[50px] relative w-full rounded-2xl h-[60px] font-medium text-[16px]/[24px]
-                text-customBlack-1 border-customGray-3 focus-visible:ring-transparent
-                focus-visible:border-primary placeholder:text-customGray-3"
-              placeholder="이메일을 입력해 주세요"
-            />
-            <MailIcon
-              width={20}
-              height={20}
-              className="absolute left-5 top-[20px] text-customGray-2"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col w-full">
-          <span className="ml-2 mb-2 text-[14px]/[22px] font-medium text-black">
-            비밀번호
-          </span>
-          <div className="flex relative w-full">
-            <Input
-              className="pl-[50px] relative w-full rounded-2xl h-[60px] font-medium text-[16px]/[24px]
-                text-customBlack-1 border-customGray-3 focus-visible:ring-transparent
-                focus-visible:border-primary placeholder:text-customGray-3"
-              placeholder="비밀번호를 입력해 주세요"
-            />
-            <LockKeyholeIcon
-              width={20}
-              height={20}
-              className="absolute left-5 top-[20px] text-customGray-2"
-            />
-          </div>
-        </div>
-        <div className="flex justify-between">
-          <div className="flex items-center space-x-2 ml-2">
-            <Checkbox
-              id="id-save-check"
-              className="data-[state=checked]:text-white data-[state=checked]:border-primary w-[22px]
-                h-[22px] border-customGray-3"
-            />
-            <label
-              htmlFor="id-save-check"
-              className="text-customGray-1 select-none cursor-pointer leading-none
-                peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[14px]/[22px]"
-            >
-              이메일 저장
-            </label>
-          </div>
-          <div className="text-customGray-1 cursor-pointer text-[14px]/[22px] hover:text-primary">
-            비밀번호 찾기
-          </div>
-        </div>
-      </div>
-      <Button
-        className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
-          mb-[47px]"
+      <GenericForm<SigninFormDataType>
+        formOptions={{
+          mode: 'onChange',
+          defaultValues: {
+            email: '',
+            password: '',
+          },
+        }}
+        onSubmit={handleSubmitSignup}
       >
-        로그인
-      </Button>
+        <div className="flex flex-col justify-center gap-5 mb-[40px]">
+          <div className="flex flex-col w-full">
+            <span className="ml-2 mb-2 text-[14px]/[22px] font-medium text-black">
+              이메일
+            </span>
+            <div className="flex relative w-full">
+              <Input
+                className={cn(
+                  `pl-[50px] relative w-full rounded-2xl h-[60px] font-medium text-[16px]/[24px]
+                  text-customBlack-1 border-customGray-3 focus-visible:ring-transparent
+                  focus-visible:border-primary placeholder:text-customGray-3`,
+                )}
+                placeholder="이메일을 입력해 주세요"
+                inputMode="email"
+                type={'text'}
+                {...register('email', {
+                  pattern: {
+                    value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i,
+                    message: '이메일 또는 비밀번호가 잘못 되었습니다.',
+                  },
+                  required: '이메일을 입력해 주세요.',
+                })}
+                onFocus={() => toggleFocusedEmail('FOCUS')}
+                onBlur={() => toggleFocusedEmail('BLUR')}
+                maxLength={50}
+              />
+              <MailIcon
+                width={20}
+                height={20}
+                className={cn(
+                  'absolute left-5 top-[20px] text-customGray-2',
+                  focusedEmail && 'text-primary',
+                )}
+              />
+              {email && (
+                <CircleXIcon
+                  className={cn(
+                    'absolute right-5 top-5 cursor-pointer text-customGray-3 w-5 h-5',
+                  )}
+                  onClick={handleDeleteEmail}
+                />
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col w-full">
+            <span className="ml-2 mb-2 text-[14px]/[22px] font-medium text-black">
+              비밀번호
+            </span>
+            <div className="flex relative w-full">
+              <Input
+                className={cn(
+                  `pl-[50px] relative w-full rounded-2xl h-[60px] font-medium text-[16px]/[24px]
+                  text-customBlack-1 border-customGray-3 focus-visible:ring-transparent
+                  focus-visible:border-primary placeholder:text-customGray-3`,
+                )}
+                placeholder="비밀번호를 입력해 주세요"
+                type="password"
+                {...register('password', {
+                  pattern: {
+                    value:
+                      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/i,
+                    message: '이메일 또는 비밀번호가 잘못 되었습니다.',
+                  },
+                  required: '비밀번호를 입력해 주세요.',
+                })}
+                onFocus={() => toggleFocusedPassword('FOCUS')}
+                onBlur={() => toggleFocusedPassword('BLUR')}
+                maxLength={30}
+              />
+              <LockKeyholeIcon
+                width={20}
+                height={20}
+                className={cn(
+                  'absolute left-5 top-[20px] text-customGray-2',
+                  focusedPassword && 'text-primary',
+                )}
+              />
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <div className="flex items-center space-x-2 ml-2">
+              <Checkbox
+                id="id-save-check"
+                className="data-[state=checked]:text-white data-[state=checked]:border-primary w-[22px]
+                  h-[22px] border-customGray-3"
+                onClick={() => {
+                  setIsRememberEmail((prev) => !prev);
+                }}
+                checked={isRememberEmail}
+              />
+              <label
+                htmlFor="id-save-check"
+                className="text-customGray-1 select-none cursor-pointer leading-none
+                  peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[14px]/[22px]"
+              >
+                이메일 저장
+              </label>
+            </div>
+            <div className="text-customGray-1 cursor-pointer text-[14px]/[22px] hover:text-primary">
+              비밀번호 찾기
+            </div>
+          </div>
+        </div>
+        <div className="w-full h-5 text-right mb-1 font-medium">
+          {errors?.email && (
+            <p className="text-[14px]/[20px] text-secondary">
+              {errors?.email.message}
+            </p>
+          )}
+          {errors?.password && (
+            <p className="text-[14px]/[20px] text-secondary">
+              {errors?.password.message}
+            </p>
+          )}
+        </div>
+        <Button
+          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
+            mb-[47px]"
+        >
+          로그인
+        </Button>
+      </GenericForm>
+
       <div className="flex items-center justify-between gap-[22px]">
         {/* 카카오 로그인 */}
         <Button
