@@ -1,14 +1,5 @@
 import { Button } from '@/components/ui/button';
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from '@/components/ui/drawer';
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -29,6 +20,14 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
+import dayjs from 'dayjs';
+
+function getDayArray(year: number, month: number) {
+  const dayCount = new Date(year, month, 0).getDate();
+  return Array.from({ length: dayCount }, (_, i) =>
+    String(i + 1).padStart(2, '0'),
+  );
+}
 
 export function BirthDrawer() {
   const { watch, setValue } = useFormContext<FormDataType>();
@@ -40,6 +39,8 @@ export function BirthDrawer() {
 
   const [pickerValue, setPickerValue] = useState<PickerValue>({
     year: '2000',
+    month: '08',
+    day: '12',
   });
 
   const handlePickerChange = useCallback(
@@ -49,33 +50,48 @@ export function BirthDrawer() {
         return;
       }
 
-      const { year } = newValue;
-
-      setPickerValue({ year: year });
+      const { year, month } = newValue;
+      const newDayArray = getDayArray(Number(year), Number(month));
+      const newDay = newDayArray.includes(newValue.day)
+        ? newValue.day
+        : newDayArray[newDayArray.length - 1];
+      setPickerValue({ ...newValue, day: newDay });
+      console.log(month);
     },
     [],
   );
 
   const handleOnClose = () => {
-    setValue('birth', Number(pickerValue.year));
+    console.log(pickerValue.month);
+    const birth = dayjs(
+      `${pickerValue.year}-${pickerValue.month}-${pickerValue.day}`,
+    ).format('YYYY / MM / DD');
+    setValue('birth', birth);
     births.onClose();
   };
 
   useEffect(() => {
-    setPickerValue({ year: `${birth}` });
-  }, [birth]);
+    const year = dayjs(birth).year();
+    const month =
+      dayjs(birth).month() < 10
+        ? `0${dayjs(birth).month()}`
+        : dayjs(birth).month();
+    const date = dayjs(birth).date();
+
+    setPickerValue({ year: `${year}`, month: `${month}`, day: `${date}` });
+  }, []);
 
   if (isDesktop) {
     return (
       <Dialog open={births.isOpen} onOpenChange={handleOnClose}>
-        <DialogContent className="sm:max-w-[428px]">
+        <DialogContent className="sm:max-w-[428px]" aria-describedby="">
           <DialogHeader className="border-b pb-3">
             <DialogTitle className="text-lg text-center font-medium">
-              출생년도
+              생년월일
             </DialogTitle>
           </DialogHeader>
 
-          <DialogDescription className="flex min-h-full items-center justify-center text-center w-full cursor-row-resize">
+          <div className="flex min-h-full items-center justify-center text-center w-full cursor-row-resize">
             <Picker
               value={pickerValue}
               onChange={handlePickerChange}
@@ -102,8 +118,49 @@ export function BirthDrawer() {
                   ),
                 )}
               </Picker.Column>
+              <Picker.Column name="month">
+                {Array.from({ length: 12 }, (_, i) =>
+                  String(i + 1).padStart(2, '0'),
+                ).map((month) => (
+                  <Picker.Item key={month} value={month}>
+                    {({ selected }) => (
+                      <div
+                        className={cn(
+                          'text-[16px]/[24px] w-full',
+                          selected
+                            ? 'font-semibold text-neutral-900'
+                            : 'text-neutral-400',
+                        )}
+                      >
+                        {month}
+                      </div>
+                    )}
+                  </Picker.Item>
+                ))}
+              </Picker.Column>
+              <Picker.Column name="day">
+                {getDayArray(
+                  Number(pickerValue.year),
+                  Number(pickerValue.month),
+                ).map((day) => (
+                  <Picker.Item key={day} value={day}>
+                    {({ selected }) => (
+                      <div
+                        className={cn(
+                          'text-[16px]/[24px] w-full',
+                          selected
+                            ? 'font-semibold text-neutral-900'
+                            : 'text-neutral-400',
+                        )}
+                      >
+                        {day}
+                      </div>
+                    )}
+                  </Picker.Item>
+                ))}
+              </Picker.Column>
             </Picker>
-          </DialogDescription>
+          </div>
 
           <Button
             className="relative bg-primary w-full rounded-2xl h-[50px] font-semibold text-lg text-white
@@ -119,7 +176,7 @@ export function BirthDrawer() {
 
   return (
     <Sheet open={births.isOpen} onOpenChange={handleOnClose}>
-      <SheetContent side="bottom" hideCloseButton>
+      <SheetContent side="bottom" hideCloseButton aria-describedby="">
         <SheetHeader className="border-b pb-3 relative justify-center">
           <SheetTitle className="text-lg text-center font-medium">
             출생년도
@@ -132,7 +189,7 @@ export function BirthDrawer() {
           </p>
         </SheetHeader>
 
-        <SheetDescription className="flex min-h-full items-center justify-center text-center w-full">
+        <div className="flex min-h-full items-center justify-center text-center w-full">
           <Picker
             value={pickerValue}
             onChange={handlePickerChange}
@@ -158,8 +215,49 @@ export function BirthDrawer() {
                 ),
               )}
             </Picker.Column>
+            <Picker.Column name="month">
+              {Array.from({ length: 12 }, (_, i) =>
+                String(i + 1).padStart(2, '0'),
+              ).map((month) => (
+                <Picker.Item key={month} value={month}>
+                  {({ selected }) => (
+                    <div
+                      className={cn(
+                        'text-[16px]/[24px] w-full',
+                        selected
+                          ? 'font-semibold text-neutral-900'
+                          : 'text-neutral-400',
+                      )}
+                    >
+                      {month}
+                    </div>
+                  )}
+                </Picker.Item>
+              ))}
+            </Picker.Column>
+            <Picker.Column name="day">
+              {getDayArray(
+                Number(pickerValue.year),
+                Number(pickerValue.month),
+              ).map((day) => (
+                <Picker.Item key={day} value={day}>
+                  {({ selected }) => (
+                    <div
+                      className={cn(
+                        'text-[16px]/[24px] w-full',
+                        selected
+                          ? 'font-semibold text-neutral-900'
+                          : 'text-neutral-400',
+                      )}
+                    >
+                      {day}
+                    </div>
+                  )}
+                </Picker.Item>
+              ))}
+            </Picker.Column>
           </Picker>
-        </SheetDescription>
+        </div>
       </SheetContent>
     </Sheet>
   );

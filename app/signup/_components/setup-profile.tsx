@@ -62,6 +62,7 @@ const SetupProfile = ({ handleClickNext }: Props) => {
                     message: '사용자 이름은 최소 2자 이상이어야 합니다.',
                   },
                 })}
+                maxLength={30}
               />
               {userName && (
                 <CircleXIcon
@@ -109,7 +110,7 @@ const SetupProfile = ({ handleClickNext }: Props) => {
         </div>
         <div className="flex flex-col mt-4">
           <h2 className="text-black text-[24px]/[32px] font-semibold mt-[14px] mb-[10px]">
-            출생년도
+            생년월일
           </h2>
           <div className="flex flex-col w-full">
             <div className="flex w-full relative h-[54px]">

@@ -31,7 +31,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
   const isNext =
     passwordStatus === 'right' &&
     confirmPasswordMessage === '' &&
-    confirmPassword;
+    confirmPassword.length > 7;
 
   useEffect(() => {
     if (passwordTimer) clearTimeout(passwordTimer);
@@ -64,7 +64,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
         } else {
           setConfirmPasswordMessage('');
         }
-      }, 0),
+      }, 100),
     );
   }, [confirmPassword, password]);
 

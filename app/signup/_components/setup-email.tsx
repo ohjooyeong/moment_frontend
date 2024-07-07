@@ -94,11 +94,11 @@ const SetupEmail = ({ handleClickNext }: Props) => {
               type={'text'}
               {...register('email', {
                 pattern: {
-                  value:
-                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i,
                   message: '알맞은 이메일이 아닙니다!',
                 },
               })}
+              maxLength={50}
               readOnly={isVerifyEmail}
             />
             {email && (
@@ -176,7 +176,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
           className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
             mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
           onClick={handleEmailConfirm}
-          disabled={!email}
+          disabled={!email || !!errors.email}
         >
           이메일 인증
         </Button>
