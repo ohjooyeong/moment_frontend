@@ -1,9 +1,9 @@
-import Test from "./_components/test";
+import HomeMain from './_components/home';
 
 export default function Home() {
   return (
-    <main>
-      <Test />
-    </main>
+    <div className="mx-8 relative flex justify-center items-center h-[calc(100vh - 56px)]">
+      <HomeMain />
+    </div>
   );
 }
