@@ -1,5 +1,6 @@
 'use client';
 
+import BottomNavigation from '@/components/bottom-navigation';
 import Navbar from './_components/navbar';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -7,6 +8,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="mx-auto my-0 max-w-xl moment-container">
       <Navbar />
       {children}
+      <BottomNavigation />
     </div>
   );
 };
