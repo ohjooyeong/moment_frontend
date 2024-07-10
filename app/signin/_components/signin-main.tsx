@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import ImageKakaoMainLogo from '@/public/assets/image-kakao-main-logo.svg';
 import ImageGoogleLogo from '@/public/assets/image-google-logo.svg';
-import { LockKeyholeIcon, MailIcon } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, LockKeyholeIcon, MailIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
@@ -33,6 +33,7 @@ const SigninMain = () => {
   } = useForm<SigninFormDataType>();
 
   const [focusedEmail, setFocusedEmail] = useState(false);
+  const [viewPassword, setViewPassword] = useState(false);
   const [focusedPassword, setFocusedPassword] = useState(false);
   const [isRememberEmail, setIsRememberEmail] = useState(false);
 
@@ -42,6 +43,15 @@ const SigninMain = () => {
 
   const handleDeleteEmail = () => {
     setValue('email', '');
+  };
+
+  const toggleViewPassword = (status: 'VIEW' | 'HIDE') => {
+    if (status === 'VIEW') {
+      setViewPassword(true);
+    }
+    if (status === 'HIDE') {
+      setViewPassword(false);
+    }
   };
 
   const toggleFocusedEmail = (status: 'FOCUS' | 'BLUR') => {
@@ -167,7 +177,7 @@ const SigninMain = () => {
                   focus-visible:border-primary placeholder:text-customGray-3`,
                 )}
                 placeholder="비밀번호를 입력해 주세요"
-                type="password"
+                type={viewPassword ? 'text' : 'password'}
                 {...register('password', {
                   pattern: {
                     value:
@@ -188,6 +198,23 @@ const SigninMain = () => {
                   focusedPassword && 'text-primary',
                 )}
               />
+              {viewPassword ? (
+                <EyeIcon
+                  className={cn(
+                    'absolute right-5 top-5 cursor-pointer text-customGray-3 w-5 h-5',
+                    focusedPassword && 'text-primary',
+                  )}
+                  onClick={() => toggleViewPassword('HIDE')}
+                />
+              ) : (
+                <EyeOffIcon
+                  className={cn(
+                    'absolute right-5 top-5 cursor-pointer text-customGray-3 w-5 h-5',
+                    focusedPassword && 'text-primary',
+                  )}
+                  onClick={() => toggleViewPassword('VIEW')}
+                />
+              )}
             </div>
           </div>
           <div className="flex justify-between">
