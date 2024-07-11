@@ -76,17 +76,6 @@ const SigninMain = () => {
     router.back();
   };
 
-  const handleLoginKakao = async () => {
-    try {
-      const { data } = await axios.get(
-        'http://43.203.84.215:8080/oauth2/authorization/kakao',
-      );
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleSubmitSignup = async () => {
     const emailOutput = await trigger('email');
     if (!emailOutput) return;
@@ -256,8 +245,9 @@ const SigninMain = () => {
         <Button
           className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
             mb-[47px]"
+          asChild
         >
-          로그인
+          <Link href={'#'}>로그인</Link>
         </Button>
       </GenericForm>
 
@@ -267,27 +257,41 @@ const SigninMain = () => {
           variant={'outline'}
           className="flex items-center justify-center bg-white w-full rounded-2xl h-[60px]
             font-semibold text-lg text-white mb-[47px] border-customGray-2"
-          onClick={handleLoginKakao}
+          asChild
         >
-          <Image
-            width={34}
-            height={34}
-            alt="kakao-logo"
-            src={ImageKakaoMainLogo}
-          />
+          <Link
+            href={
+              'http://ec2-43-203-84-215.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/kakao'
+            }
+          >
+            로그인
+            <Image
+              width={34}
+              height={34}
+              alt="kakao-logo"
+              src={ImageKakaoMainLogo}
+            />
+          </Link>
         </Button>
         {/* 구글 로그인 */}
         <Button
           variant={'outline'}
           className="relative bg-white w-full rounded-2xl h-[60px] font-semibold text-lg text-white
             mb-[47px] border-customGray-2"
+          asChild
         >
-          <Image
-            width={28}
-            height={28}
-            alt="kakao-logo"
-            src={ImageGoogleLogo}
-          />
+          <Link
+            href={
+              'http://ec2-43-203-84-215.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google'
+            }
+          >
+            <Image
+              width={28}
+              height={28}
+              alt="kakao-logo"
+              src={ImageGoogleLogo}
+            />
+          </Link>
         </Button>
       </div>
       <div className="flex absolute bottom-4 left-0 right-0 max-w-xl justify-center">
