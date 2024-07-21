@@ -45,7 +45,7 @@ const BottomNavigation = () => {
         <Link
           key={nav.link}
           href={`${nav.link}`}
-          className="w-1/5 flex flex-col items-center relative justify-center h-[60px] gap-1"
+          className="w-1/5 flex flex-col items-center relative justify-center h-[66px] gap-1"
         >
           <div className="w-7 h-7 flex items-center justify-center">
             {nav.icon}

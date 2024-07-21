@@ -5,7 +5,7 @@ import Navbar from './_components/navbar';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="mx-auto my-0 max-w-xl moment-container">
+    <div className="mx-auto my-0 max-w-xl moment-container bg-customWhite-2">
       <Navbar />
       {children}
       <BottomNavigation />
