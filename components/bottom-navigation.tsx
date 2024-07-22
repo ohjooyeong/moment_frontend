@@ -39,7 +39,7 @@ const BottomNavigation = () => {
   return (
     <div
       className="flex fixed bottom-0 left-0 right-0 mx-auto my-0 max-w-xl border-t
-        border-customWhite-3"
+        border-customWhite-3 bg-white"
     >
       {bottomNav.map((nav) => (
         <Link
