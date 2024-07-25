@@ -7,13 +7,13 @@ import Image from 'next/image';
 const HomeMain = () => {
   return (
     <div className="w-full">
-      <div className="w-full bg-white mt-4 rounded-3xl p-5 flex flex-col">
-        <div className="mt-6 flex justify-between px-3 py-4">
-          <div className="w-[100px] h-[100px] rounded-full bg-customWhite-3"></div>
+      <div className="w-full bg-white mt-4 rounded-3xl p-3 sm:p-5 flex flex-col">
+        <div className="mt-6 flex justify-between sm:px-4 py-4">
+          <div className="w-[100px] h-[100px] rounded-full bg-customWhite-3 sm:w-[120px] sm:h-[120px]"></div>
           <div className="flex flex-col p-4 items-center justify-center text-primary">
             <Image alt="heart-icon" src={HeartFill} className="w-12 h-12" />
           </div>
-          <div className="w-[100px] h-[100px] rounded-full bg-customWhite-3"></div>
+          <div className="w-[100px] h-[100px] rounded-full bg-customWhite-3 sm:w-[120px] sm:h-[120px]"></div>
         </div>
         <div className="flex justify-end gap-4 px-3 mt-6">
           <div className="flex flex-col gap-1">
@@ -72,7 +72,7 @@ const HomeMain = () => {
                 2024. 5. 2.
               </div>
             </div>
-            <h3 className="text-[20px]/[26px] font-semibold text-customBlack-1 text-overflow-line-2">
+            <h3 className="text-[20px]/[26px] font-bold text-customBlack-1 text-overflow-line-2">
               우리가 같이 먹었던 것 중 생각나는 음식은?
             </h3>
           </div>
@@ -90,7 +90,7 @@ const HomeMain = () => {
                 2024. 5. 2.
               </div>
             </div>
-            <h3 className="text-[20px]/[26px] font-semibold text-customBlack-1 text-overflow-line-2">
+            <h3 className="text-[20px]/[26px] font-bold text-customBlack-1 text-overflow-line-2">
               함께 가고 싶은 해외 여행지를 말해주세요. 긴글 쓰기 긴글 쓰기 긴글
               쓰기
             </h3>
@@ -113,7 +113,7 @@ const HomeMain = () => {
               긴글 쓰기 긴글 쓰기
             </h3>
             <div className="mt-3 flex justify-between">
-              <span className="text-[16px]/[24px] font-medium text-customGray-1">
+              <span className="text-[16px]/[24px] font-medium text-customGray-1 text-ellipsis whitespace-nowrap">
                 두달 전에 우리가 아침부터 나와서 .....
               </span>
               <div className="flex gap-1 items-center">

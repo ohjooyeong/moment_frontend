@@ -11,6 +11,8 @@ import { cn } from '@/lib/utils';
 import TimeLeft from './time-left';
 import { useEffect, useState } from 'react';
 
+import { memberApis } from '@/services/members';
+
 type Props = {
   handleClickNext: () => void;
 };
@@ -40,11 +42,19 @@ const SetupEmail = ({ handleClickNext }: Props) => {
   };
 
   const handleEmailConfirm = async () => {
-    const output = await trigger('email', { shouldFocus: true });
+    try {
+      const output = await trigger('email', { shouldFocus: true });
+      if (!output) return;
 
-    if (!output) return;
+      const context = {
+        email: email,
+      };
+      await memberApis.post(`/v1/members/send-authentication-email`, context);
 
-    setValue('isVerifyEmail', output);
+      setValue('isVerifyEmail', output);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
