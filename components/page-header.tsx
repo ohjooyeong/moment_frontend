@@ -11,7 +11,7 @@ const PageHeader = ({ handleRoutePrev, title }: Props) => {
     <div className="flex flex-col justify-center items-center mb-[24px]">
       <div
         className="relative flex items-center justify-center w-full rounded-2xl font-semibold
-          text-lg text-black h-[56px]"
+          text-[20px]/[30px] text-black h-[56px]"
       >
         <ArrowLeftIcon
           width={24}

@@ -20,7 +20,7 @@ const HomeMain = () => {
             <span className="font-semibold text-[22px]/[30px] text-customBlack-1">
               함께한 지 100 일 째
             </span>
-            <span className="text-[14px]/[20px] text-customGray-3 font-normal flex justify-end">
+            <span className="text-[16px]/[24px] text-customGray-3 font-normal flex justify-end">
               2024. 5. 5.
             </span>
           </div>
@@ -38,7 +38,7 @@ const HomeMain = () => {
                 <PencilLineIcon className="w-5 h-5" />
                 내가 한 답변
               </div>
-              <div className="text-[14px]/[20px] text-customGray-3 font-normal">
+              <div className="text-[16px]/[24px] text-customGray-3 font-normal">
                 2024. 5. 4.
               </div>
             </div>
@@ -51,7 +51,7 @@ const HomeMain = () => {
               </span>
               <div className="flex gap-1 items-center">
                 <StarIcon className="w-4 h-4 text-primary" fill="#04B8AB" />
-                <p className="text-[14px]/[20px] text-customGray-1 font-medium">
+                <p className="text-[16px]/[24px] text-customGray-1 font-medium">
                   5
                 </p>
               </div>
@@ -63,12 +63,12 @@ const HomeMain = () => {
               <div className="text-[16px]/[22px] text-secondary font-bold flex gap-1 items-center">
                 <MessageCircleHeartIcon className="w-5 h-5" />
                 질문
-                <p className="text-[12px]/[18px] text-customGray-3 ml-1">
+                <p className="text-[14px]/[20px] text-customGray-3 ml-1">
                   아직 답변을 적지 않았어요!
                 </p>
               </div>
 
-              <div className="text-[14px]/[20px] text-customGray-3 font-semibold">
+              <div className="text-[16px]/[24px] text-customGray-3 font-semibold">
                 2024. 5. 2.
               </div>
             </div>
@@ -81,12 +81,12 @@ const HomeMain = () => {
               <div className="text-[16px]/[22px] text-secondary font-bold flex gap-1 items-center">
                 <MessageCircleHeartIcon className="w-5 h-5" />
                 질문
-                <p className="text-[12px]/[18px] text-customGray-3 ml-1">
+                <p className="text-[14px]/[20px] text-customGray-3 ml-1">
                   아직 답변을 적지 않았어요!
                 </p>
               </div>
 
-              <div className="text-[14px]/[20px] text-customGray-3 font-semibold">
+              <div className="text-[16px]/[24px] text-customGray-3 font-semibold">
                 2024. 5. 2.
               </div>
             </div>
@@ -101,7 +101,7 @@ const HomeMain = () => {
                 <PencilLineIcon className="w-5 h-5" />
                 내가 한 답변
               </div>
-              <div className="text-[14px]/[20px] text-customGray-3 font-normal">
+              <div className="text-[16px]/[24px] text-customGray-3 font-normal">
                 2024. 5. 4.
               </div>
             </div>
@@ -118,7 +118,7 @@ const HomeMain = () => {
               </span>
               <div className="flex gap-1 items-center">
                 <StarIcon className="w-4 h-4 text-primary" fill="#04B8AB" />
-                <p className="text-[14px]/[20px] text-customGray-1 font-medium">
+                <p className="text-[16px]/[24px] text-customGray-1 font-medium">
                   5
                 </p>
               </div>

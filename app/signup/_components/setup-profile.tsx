@@ -71,7 +71,7 @@ const SetupProfile = ({ handleClickNext }: Props) => {
                 />
               )}
               {errors?.userName && (
-                <p className="absolute left-2 bottom-0 text-[12px]/[18px] text-secondary">
+                <p className="absolute left-2 bottom-0 text-[14px]/[20px] text-secondary">
                   {errors.userName.message}
                 </p>
               )}
@@ -132,7 +132,7 @@ const SetupProfile = ({ handleClickNext }: Props) => {
           <Button
             onClick={handleClickNext}
             className="bg-primary-main w-full rounded-2xl text-customWhite-1 h-[60px] font-semibold
-              text-lg disabled:text-customGray-1 disabled:bg-customWhite-3"
+              text-[20px]/[30px] disabled:text-customGray-1 disabled:bg-customWhite-3"
             disabled={!isNext}
           >
             회원가입 완료!

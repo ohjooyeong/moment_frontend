@@ -81,11 +81,11 @@ const SetupEmail = ({ handleClickNext }: Props) => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.75 }}
     >
-      <h1 className="text-black text-[24px]/[32px] font-semibold mt-[14px]">
+      <h1 className="text-black text-[28px]/[36px] font-semibold mt-[14px]">
         함께 시작할래요?
       </h1>
       <div className="flex flex-col mt-7">
-        <span className="mb-3 text-[14px]/[22px] font-normal text-customGray-1">
+        <span className="mb-3 text-[20px]/[28px] font-normal text-customGray-1">
           {`이메일을 입력해 주세요 :)`}
         </span>
         <div className="flex flex-col w-full">
@@ -121,7 +121,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
               />
             )}
             {errors?.email && (
-              <p className="absolute left-2 bottom-0 text-[12px]/[18px] text-secondary">
+              <p className="absolute left-2 bottom-0 text-[14px]/[20px] text-secondary">
                 {errors.email.message}
               </p>
             )}
@@ -135,7 +135,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
           transition={{ duration: 0.75 }}
           className="flex flex-col mt-[14px]"
         >
-          <span className="mb-3 text-[14px]/[22px] font-normal text-customGray-1">
+          <span className="mb-3 text-[16px]/[24px] font-normal text-customGray-1">
             {`이메일에 전송된 인증번호를 입력해 주세요 :)`}
           </span>
           <div className="flex flex-col w-full">
@@ -170,7 +170,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
               {verificationMessage && (
                 <p
                   className={cn(
-                    'absolute left-2 bottom-0 text-[12px]/[18px] text-secondary',
+                    'absolute left-2 bottom-0 text-[14px]/[20px] text-secondary',
                     isVerifyCode && 'text-primary font-semibold',
                   )}
                 >
@@ -183,8 +183,8 @@ const SetupEmail = ({ handleClickNext }: Props) => {
       )}
       {!isVerifyEmail && (
         <Button
-          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
-            mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
+          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
+            text-white mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
           onClick={handleEmailConfirm}
           disabled={!email || !!errors.email}
         >
@@ -193,8 +193,8 @@ const SetupEmail = ({ handleClickNext }: Props) => {
       )}
       {isVerifyEmail && (
         <Button
-          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
-            mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
+          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
+            text-white mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
           onClick={handleClickNext}
           disabled={!isVerifyCode}
         >

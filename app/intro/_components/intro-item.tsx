@@ -59,10 +59,10 @@ const IntroItem = ({
           className="mb-11"
           style={{ height: '250px' }}
         />
-        <h2 className="text-[26px]/[40px] mb-3 font-semibold sm:text-[32px]/[44px]">
+        <h2 className="text-[26px]/[40px] mb-3 font-semibold sm:text-[36px]/[48px]">
           {title}
         </h2>
-        <p className="text-[14px]/[22px] text-center font-medium sm:text-[14px]/[20px]">
+        <p className="text-[16px]/[24px] text-center font-medium sm:text-[16px]/[24px]">
           {desc}
         </p>
       </div>
@@ -71,7 +71,7 @@ const IntroItem = ({
         <Button
           onClick={() => handleChangeIntroStep(step + 1)}
           className="bg-primary-main w-full rounded-2xl text-customWhite-1 h-[60px] font-semibold
-            text-lg"
+            text-[20px]/[30px]"
         >
           시작하기
         </Button>

@@ -44,7 +44,7 @@ const TimeLeft = () => {
         {timeLeft === 0 ? '시간 초과' : formatTime(timeLeft)}
       </span>
       <p
-        className="absolute right-2 bottom-0 text-[12px]/[18px] text-primary font-medium
+        className="absolute right-2 bottom-0 text-[14px]/[20px] text-primary font-medium
           cursor-pointer"
         onClick={handleClickReload}
       >

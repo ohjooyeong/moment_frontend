@@ -14,13 +14,13 @@ const SigninIntro = () => {
           <Image fill alt="moment-logo" src={ImageMomentLogo} />
         </div>
         <p
-          className="text-[16px]/[20px] sm:text-[18px]/[26px] text-center font-bold
+          className="text-[18px]/[26px] sm:text-[20px]/[28px] text-center font-bold
             text-customBlack-4 mb-3"
         >
           연인과의 소중한 순간을 기록하세요
         </p>
         <p
-          className="text-[16px]/[20px] sm:text-[18px]/[26px] text-center font-bold
+          className="text-[18px]/[26px] sm:text-[20px]/[28px] text-center font-bold
             text-customBlack-4"
         >
           추억을 함께 나누고, 특별한 날을 기억하세요
@@ -29,7 +29,7 @@ const SigninIntro = () => {
       <div className="flex flex-col justify-center items-center gap-4">
         <Button
           className="relative bg-[#FFF500] hover:bg-[#e5dc00] w-full rounded-2xl h-[60px]
-            font-semibold text-lg text-black"
+            font-semibold text-[20px]/[30px] text-black"
         >
           <Image
             width={24}
@@ -42,7 +42,7 @@ const SigninIntro = () => {
         </Button>
         <Button
           className="relative bg-[#ffffff] hover:bg-[#f2f2f2] w-full rounded-2xl h-[60px]
-            font-semibold text-lg text-black mb-[70px] border-customGray-3 border"
+            font-semibold text-[20px]/[30px] text-black mb-[70px] border-customGray-3 border"
         >
           <Image
             width={24}
@@ -54,7 +54,7 @@ const SigninIntro = () => {
           구글 로그인
         </Button>
         <Button
-          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg
+          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
             text-customWhite-1 mb-[70px]"
           asChild
         >
@@ -62,12 +62,12 @@ const SigninIntro = () => {
         </Button>
       </div>
       <div className="flex absolute bottom-4 left-0 right-0 max-w-xl justify-center">
-        <p className="text-customBlack-1 font-medium text-[14px]/[22px]">
+        <p className="text-customBlack-1 font-medium text-[16px]/[24px]">
           아직 회원이 아니신가요?
         </p>
         <Link
           href={'/signup'}
-          className="text-secondary text-[14px]/[22px] font-semibold ml-[6px] underline
+          className="text-secondary text-[16px]/[24px] font-semibold ml-[6px] underline
             cursor-pointer"
         >
           회원가입

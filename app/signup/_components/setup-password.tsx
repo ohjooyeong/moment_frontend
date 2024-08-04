@@ -95,7 +95,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
             {passwordMessage && (
               <p
                 className={cn(
-                  'absolute left-2 bottom-0 text-[12px]/[18px] text-secondary',
+                  'absolute left-2 bottom-0 text-[14px]/[20px] text-secondary',
                   passwordStatus === 'right' && 'text-primary',
                 )}
               >
@@ -124,7 +124,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
               maxLength={30}
             />
             {confirmPasswordMessage && (
-              <p className="absolute left-2 bottom-0 text-[12px]/[18px] text-secondary">
+              <p className="absolute left-2 bottom-0 text-[14px]/[20px] text-secondary">
                 {confirmPasswordMessage}
               </p>
             )}
@@ -132,8 +132,8 @@ const SetupPassword = ({ handleClickNext }: Props) => {
         </div>
       </div>
       <Button
-        className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
-          mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
+        className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
+          text-white mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
         disabled={!isNext}
         onClick={handleClickNext}
       >

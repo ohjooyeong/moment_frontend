@@ -112,7 +112,7 @@ const SigninMain = () => {
       >
         <div className="flex flex-col justify-center gap-5 mb-[40px]">
           <div className="flex flex-col w-full">
-            <span className="ml-2 mb-2 text-[14px]/[22px] font-medium text-black">
+            <span className="ml-2 mb-2 text-[16px]/[24px] font-medium text-black">
               이메일
             </span>
             <div className="flex relative w-full">
@@ -155,7 +155,7 @@ const SigninMain = () => {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <span className="ml-2 mb-2 text-[14px]/[22px] font-medium text-black">
+            <span className="ml-2 mb-2 text-[16px]/[24px] font-medium text-black">
               비밀번호
             </span>
             <div className="flex relative w-full">
@@ -220,31 +220,31 @@ const SigninMain = () => {
               <label
                 htmlFor="id-save-check"
                 className="text-customGray-1 select-none cursor-pointer leading-none
-                  peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[14px]/[22px]"
+                  peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[16px]/[24px]"
               >
                 이메일 저장
               </label>
             </div>
-            <div className="text-customGray-1 cursor-pointer text-[14px]/[22px] hover:text-primary">
+            <div className="text-customGray-1 cursor-pointer text-[16px]/[24px] hover:text-primary">
               비밀번호 찾기
             </div>
           </div>
         </div>
         <div className="w-full h-5 text-right mb-1 font-medium">
           {errors?.email && (
-            <p className="text-[14px]/[20px] text-secondary">
+            <p className="text-[16px]/[24px] text-secondary">
               {errors?.email.message}
             </p>
           )}
           {errors?.password && (
-            <p className="text-[14px]/[20px] text-secondary">
+            <p className="text-[16px]/[24px] text-secondary">
               {errors?.password.message}
             </p>
           )}
         </div>
         <Button
-          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
-            mb-[47px]"
+          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
+            text-white mb-[47px]"
           asChild
         >
           <Link href={'#'}>로그인</Link>
@@ -256,7 +256,7 @@ const SigninMain = () => {
         <Button
           variant={'outline'}
           className="flex items-center justify-center bg-white w-full rounded-2xl h-[60px]
-            font-semibold text-lg text-white mb-[47px] border-customGray-2"
+            font-semibold text-[20px]/[30px] text-white mb-[47px] border-customGray-2"
           asChild
         >
           <Link
@@ -276,8 +276,8 @@ const SigninMain = () => {
         {/* 구글 로그인 */}
         <Button
           variant={'outline'}
-          className="relative bg-white w-full rounded-2xl h-[60px] font-semibold text-lg text-white
-            mb-[47px] border-customGray-2"
+          className="relative bg-white w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
+            text-white mb-[47px] border-customGray-2"
           asChild
         >
           <Link
@@ -295,12 +295,12 @@ const SigninMain = () => {
         </Button>
       </div>
       <div className="flex absolute bottom-4 left-0 right-0 max-w-xl justify-center">
-        <p className="text-customBlack-1 font-medium text-[14px]/[22px]">
+        <p className="text-customBlack-1 font-medium text-[16px]/[24px]">
           아직 회원이 아니신가요?
         </p>
         <Link
           href={'/signup'}
-          className="text-secondary text-[14px]/[22px] font-semibold ml-[6px] underline
+          className="text-secondary text-[16px]/[24px] font-semibold ml-[6px] underline
             cursor-pointer"
         >
           회원가입

@@ -34,7 +34,7 @@ const SetupComplteSignup = () => {
       </h2>
       <Button
         className="bg-primary-main w-[200px] rounded-2xl text-customWhite-1 h-[60px] font-semibold
-          text-lg"
+          text-[20px]/[30px]"
         onClick={handleRouteChange}
       >
         로그인 하러가기

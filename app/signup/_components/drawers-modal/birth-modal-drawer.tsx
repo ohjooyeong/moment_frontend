@@ -86,7 +86,7 @@ export function BirthDrawer() {
       <Dialog open={births.isOpen} onOpenChange={handleOnClose}>
         <DialogContent className="sm:max-w-[428px]" aria-describedby="">
           <DialogHeader className="border-b pb-3">
-            <DialogTitle className="text-lg text-center font-medium">
+            <DialogTitle className="text-[20px]/[30px] text-center font-medium">
               생년월일
             </DialogTitle>
           </DialogHeader>
@@ -163,8 +163,8 @@ export function BirthDrawer() {
           </div>
 
           <Button
-            className="relative bg-primary w-full rounded-2xl h-[50px] font-semibold text-lg text-white
-              disabled:text-customGray-1 disabled:bg-customWhite-3"
+            className="relative bg-primary w-full rounded-2xl h-[50px] font-semibold text-[20px]/[30px]
+              text-white disabled:text-customGray-1 disabled:bg-customWhite-3"
             onClick={handleOnClose}
           >
             선택
@@ -178,11 +178,11 @@ export function BirthDrawer() {
     <Sheet open={births.isOpen} onOpenChange={handleOnClose}>
       <SheetContent side="bottom" hideCloseButton aria-describedby="">
         <SheetHeader className="border-b pb-3 relative justify-center">
-          <SheetTitle className="text-lg text-center font-medium">
+          <SheetTitle className="text-[20px]/[30px] text-center font-medium">
             출생년도
           </SheetTitle>
           <p
-            className="absolute right-4 text-[14px]/[20px] font-semibold text-primary mt-0"
+            className="absolute right-4 text-[16px]/[24px] font-semibold text-primary mt-0"
             onClick={handleOnClose}
           >
             선택
