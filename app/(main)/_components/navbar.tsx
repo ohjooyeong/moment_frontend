@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <header className="w-full flex items-center h-14">
       <h1 className="sr-only">moment-navbar</h1>
-      <div className="w-full my-0 flex px-[30px] justify-between">
+      <div className="w-full my-0 flex px-6 justify-between">
         <Link
           href={'/'}
           className="flex w-[157px] h-[30px] relative cursor-pointer ml-[-20px]"

@@ -1,3 +1,3 @@
 export default function Register() {
-  return <div className="h-screen mx-8 relative flex justify-center"></div>;
+  return <div className="h-screen mx-6 relative flex justify-center"></div>;
 }
