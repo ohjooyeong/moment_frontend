@@ -2,16 +2,21 @@
 
 import { Fragment, useCallback, useMemo, useState } from 'react';
 import { Cloud, FileText } from 'lucide-react';
-import { DayData, IEventStatus } from '../types';
+import { DayData, IEventData, IEventStatus } from '../types';
 import { TOTAL_CALENDAR_DAYS } from '../constants';
 import CalendarFooter from './calendar-footer';
 import { getDaysInMonth, getFirstDayOfMonth } from '../utils';
 import CalendarBody from './calendar-body';
 import CalendarHeader from './calendar-header';
+import EventList from './event-list';
+import MemoSection from './memo-section';
 
 const CoupleCalendar = () => {
   const [currentDate] = useState<Date>(new Date());
   const [viewDate, setViewDate] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [events, setEvents] = useState<IEventData[]>([]);
+  const [memo, setMemo] = useState<string>('');
 
   const year = viewDate.getFullYear();
   const month = viewDate.getMonth();
@@ -56,6 +61,21 @@ const CoupleCalendar = () => {
 
   const goToToday = useCallback(() => setViewDate(new Date()), []);
 
+  const addEvent = useCallback(() => {
+    const title = prompt('Enter event title:');
+    if (title) {
+      setEvents([...events, { date: selectedDate, title }]);
+    }
+  }, [events, selectedDate]);
+
+  const filteredEvents = useMemo(
+    () =>
+      events.filter(
+        (event) => event.date.toDateString() === selectedDate.toDateString(),
+      ),
+    [events, selectedDate],
+  );
+
   const renderEventIndicators = (events: IEventStatus[]): JSX.Element[] => {
     return events.map((event, index) => {
       switch (event.type) {
@@ -69,20 +89,15 @@ const CoupleCalendar = () => {
         case 'dot':
           return (
             <Fragment key={index}>
-              <div
-                key={index}
-                className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-secondary rounded-full"
-              />
+              <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-secondary rounded-full" />
               {event.icon === 'cloud' && (
                 <Cloud
-                  key={index}
                   size={16}
                   className="text-gray-400 absolute bottom-0 left-1/2 transform -translate-x-1/2"
                 />
               )}
               {event.icon === 'todo' && (
                 <FileText
-                  key={index}
                   size={16}
                   className="text-gray-400 absolute bottom-0 left-1/2 transform -translate-x-1/2"
                 />
@@ -112,6 +127,8 @@ const CoupleCalendar = () => {
         goToToday={goToToday}
         isCurrentMonth={isCurrentMonth}
       />
+      <EventList events={filteredEvents} addEvent={addEvent} />
+      <MemoSection memo={memo} setMemo={setMemo} />
     </div>
   );
 };

@@ -3,6 +3,11 @@ export interface IEventStatus {
   icon?: 'cloud' | 'todo';
 }
 
+export interface IEventData {
+  date: Date;
+  title: string;
+}
+
 export interface DayData {
   day: number | string;
   events: IEventStatus[];
