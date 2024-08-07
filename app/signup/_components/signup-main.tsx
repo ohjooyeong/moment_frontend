@@ -10,18 +10,7 @@ import SetupProfile from './setup-profile';
 import SetupComplteSignup from './setup-complete-signup';
 import { BirthDrawer } from './drawers-modal/birth-modal-drawer';
 import dayjs from 'dayjs';
-
-export type FormDataType = {
-  email: string;
-  code: string;
-  isVerifyEmail: boolean;
-  isVerifyCode: boolean;
-  password: string;
-  confirmPassword: string;
-  gender: 'male' | 'female';
-  userName: string;
-  birth: string;
-};
+import { FormDataType } from '../_type';
 
 // 전체 스텝을 담은 배열
 const steps = ['이메일', '비밀번호', '프로필 설정', '회원가입 완료'];
@@ -55,9 +44,9 @@ const SignupMain = () => {
           defaultValues: {
             isVerifyEmail: false,
             isVerifyCode: false,
-            gender: 'female',
+            gender: 'MALE',
             birth: dayjs('2000-10-22').format('YYYY / MM / DD'),
-            userName: '',
+            name: '',
             email: '',
             code: '',
             password: '',

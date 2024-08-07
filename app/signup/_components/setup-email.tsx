@@ -1,17 +1,19 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CircleXIcon, CircleCheckIcon } from 'lucide-react';
+import { useFormContext } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-import { useFormContext } from 'react-hook-form';
-import { FormDataType } from './signup-main';
 import { cn } from '@/lib/utils';
 import TimeLeft from './time-left';
-import { useEffect, useState } from 'react';
 
-import { memberApis } from '@/services/members';
+import useSendEmail from '../_hooks/use-send-email';
+import useVerifyEmail from '../_hooks/use-verify-email';
+import { toast } from 'sonner';
+import { FormDataType } from '../_type';
 
 type Props = {
   handleClickNext: () => void;
@@ -27,12 +29,15 @@ const SetupEmail = ({ handleClickNext }: Props) => {
   } = useFormContext<FormDataType>();
   const [verificationMessage, setVerificationMessage] = useState('');
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
-  const [correctCode, setCorrectCode] = useState('123456');
+  const [loading, setLoading] = useState(false);
 
   const email = watch('email');
   const code = watch('code');
   const isVerifyEmail = watch('isVerifyEmail');
   const isVerifyCode = watch('isVerifyCode');
+
+  const sendEmail = useSendEmail();
+  const verifyEmail = useVerifyEmail();
 
   const handleDeleteEmail = () => {
     setValue('email', '');
@@ -43,17 +48,31 @@ const SetupEmail = ({ handleClickNext }: Props) => {
 
   const handleEmailConfirm = async () => {
     try {
-      const output = await trigger('email', { shouldFocus: true });
-      if (!output) return;
+      setLoading(true);
+      const isEmailValid = await trigger('email', { shouldFocus: true });
+      if (!isEmailValid) {
+        return;
+      }
 
-      const context = {
-        email: email,
-      };
-      await memberApis.post(`/v1/members/send-authentication-email`, context);
-
-      setValue('isVerifyEmail', output);
+      await sendEmail.mutateAsync(
+        { email },
+        {
+          onSuccess: (data) => {
+            if (data.code === 10000) {
+              setValue('isVerifyEmail', true);
+            } else {
+              toast.error(data.code);
+            }
+          },
+          onError: (error) => {
+            console.error('Email verification failed', error);
+          },
+        },
+      );
     } catch (error) {
-      console.log(error);
+      console.error('An unexpected error occurred', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,19 +80,29 @@ const SetupEmail = ({ handleClickNext }: Props) => {
     if (code && code.length === 6) {
       if (timer) clearTimeout(timer);
       setTimer(
-        setTimeout(() => {
-          if (code === correctCode) {
-            setVerificationMessage('성공적으로 인증이 완료됐어요!');
-            setValue('isVerifyCode', true);
-          } else {
-            setVerificationMessage('인증번호를 재확인하세요.');
-          }
+        setTimeout(async () => {
+          await verifyEmail.mutateAsync(
+            { email, code },
+            {
+              onSuccess(data) {
+                if (data.code === 10000) {
+                  setVerificationMessage('성공적으로 인증이 완료됐어요!');
+                  setValue('isVerifyCode', true);
+                } else {
+                  setVerificationMessage(data.message);
+                }
+              },
+              onError() {
+                toast.error('죄송합니다. 잠시후 다시 시도해주세요.');
+              },
+            },
+          );
         }, 300),
       );
     } else {
       setVerificationMessage('');
     }
-  }, [code, correctCode]);
+  }, [code]);
 
   return (
     <motion.div
@@ -159,7 +188,9 @@ const SetupEmail = ({ handleClickNext }: Props) => {
                 maxLength={6}
                 readOnly={isVerifyCode}
               />
-              {!isVerifyCode && email && <TimeLeft />}
+              {!isVerifyCode && email && (
+                <TimeLeft handleResendCode={handleEmailConfirm} />
+              )}
               {isVerifyCode && (
                 <CircleCheckIcon
                   className={cn(
@@ -186,7 +217,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
           className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
             text-white mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
           onClick={handleEmailConfirm}
-          disabled={!email || !!errors.email}
+          disabled={!email || !!errors.email || loading}
         >
           이메일 인증
         </Button>

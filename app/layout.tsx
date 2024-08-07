@@ -3,7 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
 import ReactQueryProviders from '@/providers/react-query-provider';
-import axios from 'axios';
+import { Toaster } from 'sonner';
 
 // const pretendard = localFont({
 //   src: '../static/fonts/PretendardVariable.woff2',
@@ -44,6 +44,7 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
+              <Toaster position="bottom-center" />
               {children}
             </ThemeProvider>
           </ReactQueryProviders>

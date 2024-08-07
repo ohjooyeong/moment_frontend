@@ -1,7 +1,11 @@
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 
-const TimeLeft = () => {
+type TimeLeftProps = {
+  handleResendCode: () => void;
+};
+
+const TimeLeft = ({ handleResendCode }: TimeLeftProps) => {
   const [timeLeft, setTimeLeft] = useState(180); // 3분 = 180초
   const [reload, setReload] = useState(false);
 
@@ -12,6 +16,7 @@ const TimeLeft = () => {
   };
 
   const handleClickReload = () => {
+    handleResendCode();
     setReload(true);
   };
 

@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -11,16 +10,16 @@ import useMediaQuery from '@/hooks/use-meida-query';
 import Picker, { PickerValue } from 'react-mobile-picker';
 import { useCallback, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { FormDataType } from '../signup-main';
+
 import { useFormContext } from 'react-hook-form';
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
 import dayjs from 'dayjs';
+import { FormDataType } from '../../_type';
 
 function getDayArray(year: number, month: number) {
   const dayCount = new Date(year, month, 0).getDate();
@@ -56,13 +55,11 @@ export function BirthDrawer() {
         ? newValue.day
         : newDayArray[newDayArray.length - 1];
       setPickerValue({ ...newValue, day: newDay });
-      console.log(month);
     },
     [],
   );
 
   const handleOnClose = () => {
-    console.log(pickerValue.month);
     const birth = dayjs(
       `${pickerValue.year}-${pickerValue.month}-${pickerValue.day}`,
     ).format('YYYY / MM / DD');

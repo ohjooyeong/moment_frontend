@@ -2,15 +2,16 @@
 
 import { motion } from 'framer-motion';
 import { useFormContext } from 'react-hook-form';
-import { FormDataType } from './signup-main';
-import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+
+import { Button } from '@/components/ui/button';
+import { FormDataType } from '../_type';
 
 const SetupComplteSignup = () => {
   const router = useRouter();
   const { watch } = useFormContext<FormDataType>();
 
-  const userName = watch('userName');
+  const name = watch('name');
 
   const handleRouteChange = () => {
     router.replace('/signin');
@@ -28,7 +29,7 @@ const SetupComplteSignup = () => {
       </span>
 
       <h2 className="text-[32px]/[48px] text-customBlack-1 mb-4 text-center font-semibold">
-        {`${userName}님,`}
+        {`${name}님,`}
         <br />
         {`환영합니다 :)`}
       </h2>

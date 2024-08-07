@@ -5,8 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormDataType } from './signup-main';
+
 import { cn } from '@/lib/utils';
+import { FormDataType } from '../_type';
 
 type Props = {
   handleClickNext: () => void;
