@@ -8,7 +8,7 @@ type Props = {
 
 const PageHeader = ({ handleRoutePrev, title }: Props) => {
   return (
-    <div className="flex flex-col justify-center items-center mb-[24px]">
+    <div className="flex flex-col justify-center items-center">
       <div
         className="relative flex items-center justify-center w-full rounded-2xl font-semibold
           text-[20px]/[30px] text-black h-[56px]"

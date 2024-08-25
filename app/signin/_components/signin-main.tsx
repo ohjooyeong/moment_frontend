@@ -142,7 +142,7 @@ const SigninMain = () => {
               onChange={() => setIsRememberEmail((prev) => !prev)}
             />
             <Link
-              href="/forgot-password"
+              href="/find-password"
               className="text-customGray-1 hover:text-primary text-base"
             >
               비밀번호 찾기
