@@ -103,5 +103,24 @@ input:autofill:active {
   }
   body {
     @apply bg-background text-foreground;
+    font-family: Okticon;
   }
+}
+
+@font-face {
+  font-family: 'Okticon';
+  font-weight: 700;
+  src: url('../static/fonts/okticon/okticon_bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Okticon';
+  font-weight: 400;
+  src: url('../static/fonts/okticon/okticon_regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Okticon';
+  font-weight: 300;
+  src: url('../static/fonts/okticon/okticon_light.ttf') format('truetype');
 }

@@ -44,13 +44,14 @@ const TimeLeft = ({ handleResendCode }: TimeLeftProps) => {
   return (
     <>
       <span
-        className={cn('absolute right-2 top-[6px] text-customGray-1 text-end')}
+        className={cn(
+          'absolute right-2 top-[6px] text-customGray-1 text-end text-sm',
+        )}
       >
         {timeLeft === 0 ? '시간 초과' : formatTime(timeLeft)}
       </span>
       <p
-        className="absolute right-2 bottom-0 text-[14px]/[20px] text-primary font-medium
-          cursor-pointer"
+        className="absolute right-2 bottom-0 text-sm text-primary font-medium cursor-pointer"
         onClick={handleClickReload}
       >
         코드 재전송

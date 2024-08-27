@@ -23,11 +23,11 @@ const InputField = ({
   rightIcon?: React.ReactNode;
 }) => (
   <div className="flex flex-col w-full">
-    <span className="ml-2 mb-2 text-base font-medium text-black">{label}</span>
+    <span className="ml-2 mb-2 text-sm font-medium text-black">{label}</span>
     <div className="flex relative w-full">
       <Input
         className={cn(
-          `pl-[50px] w-full rounded-2xl h-[60px] font-medium text-base text-customBlack-1
+          `pl-[50px] w-full rounded-2xl h-[60px] font-medium text-sm text-customBlack-1
           border-customGray-3 focus-visible:ring-transparent focus-visible:border-primary
           placeholder:text-customGray-3`,
         )}

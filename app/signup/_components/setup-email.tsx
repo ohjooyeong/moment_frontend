@@ -109,12 +109,11 @@ const SetupEmail = ({ handleClickNext }: Props) => {
       initial={{ y: 0, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.75 }}
+      className="mt-4"
     >
-      <h1 className="text-black text-[28px]/[36px] font-semibold mt-[14px]">
-        함께 시작할래요?
-      </h1>
+      <h1 className="text-black text-xl font-bold mt-4">함께 시작할래요?</h1>
       <div className="flex flex-col mt-7">
-        <span className="mb-3 text-[20px]/[28px] font-normal text-customGray-1">
+        <span className="mb-3 text-xl font-normal text-customGray-1">
           {`이메일을 입력해 주세요 :)`}
         </span>
         <div className="flex flex-col w-full">
@@ -122,7 +121,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
             <Input
               id="email"
               className={cn(
-                `pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
+                `pl-2 relative w-full h-[32px] font-medium text-sm text-customBlack-1
                 rounded-none border-0 border-b-2 border-black ring-offset-transparent bg-white
                 focus-visible:ring-transparent placeholder:text-customGray-3
                 placeholder:font-medium pr-10`,
@@ -150,7 +149,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
               />
             )}
             {errors?.email && (
-              <p className="absolute left-2 bottom-0 text-[14px]/[20px] text-secondary">
+              <p className="absolute left-2 bottom-0 text-sm text-secondary">
                 {errors.email.message}
               </p>
             )}
@@ -164,7 +163,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
           transition={{ duration: 0.75 }}
           className="flex flex-col mt-[14px]"
         >
-          <span className="mb-3 text-[16px]/[24px] font-normal text-customGray-1">
+          <span className="mb-3 text-base font-normal text-customGray-1">
             {`이메일에 전송된 인증번호를 입력해 주세요 :)`}
           </span>
           <div className="flex flex-col w-full">
@@ -172,7 +171,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
               <Input
                 id="code"
                 className={cn(
-                  `pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
+                  `pl-2 relative w-full h-[32px] font-medium text-sm text-customBlack-1
                   rounded-none border-0 border-b-2 border-black focus-visible:ring-transparent
                   placeholder:text-customGray-3 placeholder:font-medium pr-10`,
                   isVerifyCode && 'text-primary border-primary',
@@ -201,7 +200,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
               {verificationMessage && (
                 <p
                   className={cn(
-                    'absolute left-2 bottom-0 text-[14px]/[20px] text-secondary',
+                    'absolute left-2 bottom-0 text-sm text-secondary',
                     isVerifyCode && 'text-primary font-semibold',
                   )}
                 >
@@ -224,8 +223,8 @@ const SetupEmail = ({ handleClickNext }: Props) => {
       )}
       {isVerifyEmail && (
         <Button
-          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
-            text-white mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
+          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
+            mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
           onClick={handleClickNext}
           disabled={!isVerifyCode}
         >

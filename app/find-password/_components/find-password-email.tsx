@@ -66,8 +66,8 @@ const FindPasswordEmail = ({ handleClickNext }: Props) => {
         mode: 'onChange',
       }}
     >
-      <div className="flex flex-col justify-center gap-5 mb-10">
-        <h1 className="text-black text-[28px]/[36px] font-semibold">
+      <div className="flex flex-col justify-center gap-5 mb-10 mt-4">
+        <h1 className="text-black text-xl font-semibold">
           혹시 비밀번호를 잊어버리셨나요?
         </h1>
         <div className="flex flex-col w-full">
@@ -75,7 +75,7 @@ const FindPasswordEmail = ({ handleClickNext }: Props) => {
             <Input
               id="email"
               className={cn(
-                `pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
+                `pl-2 relative w-full h-[32px] font-medium text-base text-customBlack-1
                 rounded-none border-0 border-b-2 border-black ring-offset-transparent bg-white
                 focus-visible:ring-transparent placeholder:text-customGray-3
                 placeholder:font-medium pr-10`,
@@ -100,15 +100,15 @@ const FindPasswordEmail = ({ handleClickNext }: Props) => {
               />
             )}
             {errors?.email && (
-              <p className="absolute left-2 bottom-0 text-[14px]/[20px] text-secondary">
+              <p className="absolute left-2 bottom-0 text-sm text-secondary">
                 {errors.email.message}
               </p>
             )}
           </div>
         </div>
         <Button
-          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
-            text-white mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
+          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
+            mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
           disabled={!email || loading}
           type="submit"
         >

@@ -10,9 +10,7 @@ const SocialLoginButtons = () => (
       href="http://ec2-43-203-84-215.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/kakao"
       logo={ImageKakaoMainLogo}
       alt="kakao-logo"
-    >
-      로그인
-    </SocialLoginButton>
+    ></SocialLoginButton>
     <SocialLoginButton
       href="http://ec2-43-203-84-215.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google"
       logo={ImageGoogleLogo}

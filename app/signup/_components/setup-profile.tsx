@@ -75,14 +75,14 @@ const SetupProfile = ({ handleClickNext }: Props) => {
         transition={{ duration: 0.75 }}
       >
         <div className="flex flex-col mt-[14px]">
-          <h2 className="text-black text-[24px]/[32px] font-semibold mt-[14px] mb-[10px]">
+          <h2 className="text-black text-xl font-semibold mt-[14px] mb-[10px]">
             이름 입력
           </h2>
           <div className="flex flex-col w-full">
             <div className="flex w-full relative h-[54px]">
               <Input
                 id="name"
-                className="pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
+                className="pl-2 relative w-full h-[32px] font-medium text-sm text-customBlack-1
                   rounded-none border-0 border-b-2 border-black focus-visible:ring-transparent
                   placeholder:text-customGray-3 placeholder:font-medium pr-10"
                 placeholder="이름을 입력해 주세요."
@@ -102,7 +102,7 @@ const SetupProfile = ({ handleClickNext }: Props) => {
                 />
               )}
               {errors?.name && (
-                <p className="absolute left-2 bottom-0 text-[14px]/[20px] text-secondary">
+                <p className="absolute left-2 bottom-0 text-sm text-secondary">
                   {errors.name.message}
                 </p>
               )}
@@ -110,7 +110,7 @@ const SetupProfile = ({ handleClickNext }: Props) => {
           </div>
         </div>
         <div className="flex flex-col">
-          <h2 className="text-black text-[24px]/[32px] font-semibold mt-[14px] mb-[10px]">
+          <h2 className="text-black text-xl font-semibold mt-[14px] mb-[10px]">
             성별 선택
           </h2>
           <div
@@ -120,7 +120,7 @@ const SetupProfile = ({ handleClickNext }: Props) => {
             <div
               className={cn(
                 `bg-transparent w-full flex items-center justify-center h-[40px] rounded-[6px]
-                cursor-pointer text-[18px]/[26px] font-semibold text-black`,
+                cursor-pointer text-base font-semibold text-black`,
                 gender === 'MALE' && 'bg-customWhite-1',
               )}
               onClick={() => handleChangeGender('MALE')}
@@ -130,7 +130,7 @@ const SetupProfile = ({ handleClickNext }: Props) => {
             <div
               className={cn(
                 `bg-transparent w-full flex items-center justify-center h-[40px] rounded-[6px]
-                cursor-pointer text-[18px]/[26px] font-semibold text-black`,
+                cursor-pointer text-base font-semibold text-black`,
                 gender === 'FEMALE' && 'bg-customWhite-1',
               )}
               onClick={() => handleChangeGender('FEMALE')}
@@ -140,14 +140,14 @@ const SetupProfile = ({ handleClickNext }: Props) => {
           </div>
         </div>
         <div className="flex flex-col mt-4">
-          <h2 className="text-black text-[24px]/[32px] font-semibold mt-[14px] mb-[10px]">
+          <h2 className="text-black text-xl font-semibold mt-[14px] mb-[10px]">
             생년월일
           </h2>
           <div className="flex flex-col w-full">
             <div className="flex w-full relative h-[54px]">
               <Input
                 id="name"
-                className="pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
+                className="pl-2 relative w-full h-[32px] font-medium text-sm text-customBlack-1
                   rounded-none border-0 border-b-2 border-black focus-visible:ring-transparent
                   placeholder:text-customGray-3 placeholder:font-medium pr-10 cursor-pointer"
                 type="text"
@@ -163,7 +163,7 @@ const SetupProfile = ({ handleClickNext }: Props) => {
           <Button
             onClick={handleSubmitSignup}
             className="bg-primary-main w-full rounded-2xl text-customWhite-1 h-[60px] font-semibold
-              text-[20px]/[30px] disabled:text-customGray-1 disabled:bg-customWhite-3"
+              text-lg disabled:text-customGray-1 disabled:bg-customWhite-3"
             disabled={!isNext}
           >
             회원가입 완료!

@@ -76,14 +76,14 @@ const SetupPassword = ({ handleClickNext }: Props) => {
       transition={{ duration: 0.75 }}
     >
       <div className="flex flex-col mt-[14px]">
-        <h2 className="text-black text-[24px]/[32px] font-semibold mt-[14px] mb-[10px]">
+        <h2 className="text-black text-xl font-semibold mt-[14px] mb-[10px]">
           비밀번호 입력
         </h2>
         <div className="flex flex-col w-full">
           <div className="flex w-full relative h-[54px]">
             <Input
               id="password"
-              className="pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
+              className="pl-2 relative w-full h-[32px] font-medium text-sm text-customBlack-1
                 rounded-none border-0 border-b-2 border-black focus-visible:ring-transparent
                 placeholder:text-customGray-3 placeholder:font-medium pr-10"
               placeholder="8자리 이상 특수문자 포함 입력해주세요."
@@ -96,7 +96,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
             {passwordMessage && (
               <p
                 className={cn(
-                  'absolute left-2 bottom-0 text-[14px]/[20px] text-secondary',
+                  'absolute left-2 bottom-0 text-sm text-secondary',
                   passwordStatus === 'right' && 'text-primary',
                 )}
               >
@@ -107,14 +107,14 @@ const SetupPassword = ({ handleClickNext }: Props) => {
         </div>
       </div>
       <div className="flex flex-col">
-        <h2 className="text-black text-[24px]/[32px] font-semibold mt-[14px] mb-[10px]">
+        <h2 className="text-black text-xl font-semibold mt-[14px] mb-[10px]">
           비밀번호 확인
         </h2>
         <div className="flex flex-col w-full">
           <div className="flex w-full relative h-[54px]">
             <Input
               id="confirmPassword"
-              className="pl-2 relative w-full h-[32px] font-medium text-[16px]/[24px] text-customBlack-1
+              className="pl-2 relative w-full h-[32px] font-medium text-sm text-customBlack-1
                 rounded-none border-0 border-b-2 border-black focus-visible:ring-transparent
                 placeholder:text-customGray-3 placeholder:font-medium pr-10"
               placeholder="다시 한번 입력해 주세요."
@@ -125,7 +125,7 @@ const SetupPassword = ({ handleClickNext }: Props) => {
               maxLength={30}
             />
             {confirmPasswordMessage && (
-              <p className="absolute left-2 bottom-0 text-[14px]/[20px] text-secondary">
+              <p className="absolute left-2 bottom-0 text-sm text-secondary">
                 {confirmPasswordMessage}
               </p>
             )}
@@ -133,8 +133,8 @@ const SetupPassword = ({ handleClickNext }: Props) => {
         </div>
       </div>
       <Button
-        className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
-          text-white mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
+        className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
+          mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
         disabled={!isNext}
         onClick={handleClickNext}
       >

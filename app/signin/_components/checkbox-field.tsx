@@ -21,8 +21,8 @@ const CheckboxField = ({
     />
     <label
       htmlFor={id}
-      className="text-customGray-1 select-none cursor-pointer leading-none
-        peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-base"
+      className="text-customGray-1 select-none cursor-pointer peer-disabled:cursor-not-allowed
+        peer-disabled:opacity-70 text-sm"
     >
       {label}
     </label>

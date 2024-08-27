@@ -64,18 +64,13 @@ const SigninMain = () => {
         email: context.email,
         password: context.password,
       });
-
-      // Assuming the response contains an accessToken
-      if (response.accessToken) {
-        // Save the accessToken (you might want to use a more secure method in production)
-
+      if (response.code === 10000) {
         setCookie('rememberEmail', response.accessToken);
 
         // Navigate to home page
         router.push('/');
       } else {
-        // If there's no accessToken in the response, treat it as an error
-        setLoginError('로그인에 실패했습니다. 다시 시도해 주세요.');
+        setLoginError(response.message);
       }
     } catch (error) {
       setLoginError('이메일 또는 비밀번호가 잘못 되었습니다.');
@@ -143,21 +138,21 @@ const SigninMain = () => {
             />
             <Link
               href="/find-password"
-              className="text-customGray-1 hover:text-primary text-base"
+              className="text-customGray-1 hover:text-primary text-sm"
             >
               비밀번호 찾기
             </Link>
           </div>
         </div>
-        <div className="w-full h-5 text-right mb-2">
+        <div className="w-full text-right mb-2">
           {(errors.email || errors.password || loginError) && (
-            <p className="text-lg text-secondary">
+            <p className="text-sm text-secondary">
               {errors.email?.message || errors.password?.message || loginError}
             </p>
           )}
         </div>
         <Button
-          className="w-full rounded-2xl h-15 text-xl font-semibold text-white bg-primary mb-12"
+          className="w-full rounded-2xl h-15 text-lg font-semibold text-white bg-primary mb-12"
           type="submit"
         >
           로그인
@@ -172,12 +167,12 @@ const SigninMain = () => {
 
 const SignupPrompt = () => (
   <div className="flex absolute bottom-4 left-0 right-0 max-w-xl justify-center">
-    <p className="text-customBlack-1 font-medium text-base">
+    <p className="text-customBlack-1 font-medium text-sm">
       아직 회원이 아니신가요?
     </p>
     <Link
       href="/signup"
-      className="text-secondary text-base font-semibold ml-[6px] underline cursor-pointer"
+      className="text-secondary text-sm font-bold ml-[6px] underline cursor-pointer"
     >
       회원가입
     </Link>
