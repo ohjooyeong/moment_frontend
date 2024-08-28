@@ -152,7 +152,7 @@ const SigninMain = () => {
           )}
         </div>
         <Button
-          className="w-full rounded-2xl h-15 text-lg font-semibold text-white bg-primary mb-12"
+          className="w-full rounded-2xl h-[60px] text-lg font-semibold text-white bg-primary mb-12"
           type="submit"
         >
           로그인

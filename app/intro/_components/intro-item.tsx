@@ -59,19 +59,17 @@ const IntroItem = ({
           className="mb-11"
           style={{ height: '250px' }}
         />
-        <h2 className="text-[26px]/[40px] mb-3 font-semibold sm:text-[36px]/[48px]">
+        <h2 className="text-xl mb-3 font-semibold sm:text-[30px]/[44px]">
           {title}
         </h2>
-        <p className="text-[16px]/[24px] text-center font-medium sm:text-[16px]/[24px]">
-          {desc}
-        </p>
+        <p className="text-sm text-center font-medium sm:text-sm">{desc}</p>
       </div>
       <div className="flex absolute bottom-4 left-0 right-0 max-w-xl flex-col">
         <div className="flex gap-4 justify-center mb-3">{renderDotStep()}</div>
         <Button
           onClick={() => handleChangeIntroStep(step + 1)}
           className="bg-primary-main w-full rounded-2xl text-customWhite-1 h-[60px] font-semibold
-            text-[20px]/[30px]"
+            text-base"
         >
           시작하기
         </Button>

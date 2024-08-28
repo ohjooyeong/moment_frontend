@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const Navbar = () => {
   return (
-    <header className="w-full flex items-center h-14">
+    <header className="w-full flex items-center h-14 bg-white">
       <h1 className="sr-only">moment-navbar</h1>
       <div className="w-full my-0 flex px-6 justify-between">
         <Link

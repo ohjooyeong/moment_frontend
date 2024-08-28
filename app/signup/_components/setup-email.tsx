@@ -113,7 +113,7 @@ const SetupEmail = ({ handleClickNext }: Props) => {
     >
       <h1 className="text-black text-xl font-bold mt-4">함께 시작할래요?</h1>
       <div className="flex flex-col mt-7">
-        <span className="mb-3 text-xl font-normal text-customGray-1">
+        <span className="mb-3 text-lg font-normal text-customGray-1">
           {`이메일을 입력해 주세요 :)`}
         </span>
         <div className="flex flex-col w-full">
@@ -213,8 +213,8 @@ const SetupEmail = ({ handleClickNext }: Props) => {
       )}
       {!isVerifyEmail && (
         <Button
-          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-[20px]/[30px]
-            text-white mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
+          className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
+            mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
           onClick={handleEmailConfirm}
           disabled={!email || !!errors.email || loading}
         >
