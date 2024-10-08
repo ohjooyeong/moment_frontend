@@ -5,19 +5,16 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import PageHeader from '@/components/page-header';
-import { useRouter } from 'next/navigation';
 
 const ProfileSettingMain = () => {
-  const router = useRouter();
-
   return (
     <div className="flex-col justify-around w-full">
+      <PageHeader title="설정" toLink="/mypage" />
       <motion.div
         initial={{ y: 0, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.75 }}
       >
-        <PageHeader title="설정" handleRoutePrev={() => router.back()} />
         <div className="flex items-center mb-8 mt-4">
           <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
           <div>

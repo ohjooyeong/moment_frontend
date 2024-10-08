@@ -14,12 +14,14 @@ import PageHeader from '@/components/page-header';
 type ProfileNewPasswordFormData = {
   password: string;
   newPassword: string;
+  newConfirmPassword: string;
 };
 
 const ProfileNewPasswordMain = () => {
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const ProfileNewPasswordMutation = useConfirmPassword();
+  const passwordConfirmMutation = useConfirmPassword();
 
   const {
     register,
@@ -31,37 +33,68 @@ const ProfileNewPasswordMain = () => {
     defaultValues: {
       password: '',
       newPassword: '',
+      newConfirmPassword: '',
     },
   });
 
   const password = watch('password');
+  const newPassword = watch('newPassword');
+  const newConfirmPassword = watch('newConfirmPassword');
 
   const handleDeletePassword = () => {
     setValue('password', '');
   };
 
+  const handleDeleteNewPassword = () => {
+    setValue('newPassword', '');
+  };
+
+  const handleDeleteNewConfirmPassword = () => {
+    setValue('newConfirmPassword', '');
+  };
+
+  const isValidPassword = (password: string) =>
+    password.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
   const onSubmit: SubmitHandler<ProfileNewPasswordFormData> = async (
     context,
   ) => {
+    setErrorMessage('');
+    if (context.newPassword !== context.newConfirmPassword) {
+      setErrorMessage('새 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    if (!isValidPassword(context.newPassword)) {
+      setErrorMessage(
+        '새 비밀번호는 8자 이상이며, 특수문자를 포함해야 합니다.',
+      );
+      return;
+    }
+
     try {
       setLoading(true);
-      if (
-        context.password === '1q2w3e4r' &&
-        context.newPassword === '1q2w3e4r!!'
-      ) {
-        return;
-      }
-      // await ProfileNewPasswordMutation.mutateAsync(
-      //   {
-      //     password: context.password,
-      //   },
-      //   {
-      //     onSuccess() {},
-      //   },
-      // );
+
+      await passwordConfirmMutation.mutateAsync(
+        {
+          password: context.password,
+          newPassword: context.newPassword,
+        },
+        {
+          onSuccess() {},
+          onError(error: any) {
+            if (error.message === 'Invalid current password') {
+              setErrorMessage('현재 비밀번호가 올바르지 않습니다.');
+            } else {
+              setErrorMessage('비밀번호 변경 중 오류가 발생했습니다.');
+            }
+          },
+        },
+      );
 
       // Assuming the response contains an accessToken
     } catch (error) {
+      setErrorMessage('비밀번호 변경 중 오류가 발생했습니다.');
     } finally {
       setLoading(false);
     }
@@ -75,14 +108,13 @@ const ProfileNewPasswordMain = () => {
           mode: 'onChange',
         }}
       >
+        <PageHeader title="비밀번호 변경" toLink="/mypage/profile-setting" />
         <motion.div
           initial={{ y: 0, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.75 }}
           className="mt-4"
         >
-          <PageHeader title="비밀번호 변경" handleRoutePrev={() => {}} />
-
           <div className="flex flex-col mt-7">
             <h2 className="text-black text-xl font-semibold mt-[14px] mb-[10px]">
               기존 비밀번호
@@ -100,9 +132,9 @@ const ProfileNewPasswordMain = () => {
                   placeholder="비밀번호를 입력해 주세요"
                   type={'password'}
                   {...register('password', {
-                    required: '비밀번호는 필수 입력 항목입니다.',
+                    required: '기존 비밀번호는 필수 입력 항목입니다.',
                   })}
-                  maxLength={50}
+                  maxLength={30}
                 />
                 {register.name && (
                   <CircleXIcon
@@ -135,16 +167,19 @@ const ProfileNewPasswordMain = () => {
                   placeholder="비밀번호를 입력해 주세요"
                   type={'password'}
                   {...register('newPassword', {
-                    required: '비밀번호는 필수 입력 항목입니다.',
+                    required: '새 비밀번호는 필수 입력 항목입니다.',
+                    validate: (value) =>
+                      isValidPassword(value) ||
+                      '비밀번호는 8자 이상이며, 특수문자를 포함해야 합니다.',
                   })}
-                  maxLength={50}
+                  maxLength={30}
                 />
                 {register.name && (
                   <CircleXIcon
                     className={cn(
                       'absolute right-2 top-[6px] cursor-pointer text-customGray-3 w-5 h-5',
                     )}
-                    onClick={handleDeletePassword}
+                    onClick={handleDeleteNewPassword}
                   />
                 )}
                 {errors?.newPassword && (
@@ -169,31 +204,45 @@ const ProfileNewPasswordMain = () => {
                   )}
                   placeholder="비밀번호를 입력해 주세요"
                   type={'password'}
-                  {...register('newPassword', {
-                    required: '비밀번호는 필수 입력 항목입니다.',
+                  {...register('newConfirmPassword', {
+                    required: '새 비밀번호 확인은 필수 입력 항목입니다.',
+                    validate: (value) =>
+                      value === newPassword ||
+                      '새 비밀번호와 확인 비밀번호가 일치하지 않습니다.',
                   })}
-                  maxLength={50}
+                  maxLength={30}
                 />
                 {register.name && (
                   <CircleXIcon
                     className={cn(
                       'absolute right-2 top-[6px] cursor-pointer text-customGray-3 w-5 h-5',
                     )}
-                    onClick={handleDeletePassword}
+                    onClick={handleDeleteNewConfirmPassword}
                   />
                 )}
-                {errors?.newPassword && (
+                {errors?.newConfirmPassword && (
                   <p className="absolute left-2 bottom-0 text-sm text-secondary">
-                    {errors.newPassword.message}
+                    {errors.newConfirmPassword.message}
                   </p>
                 )}
               </div>
             </div>
           </div>
+          {errorMessage && (
+            <p className="mt-4 text-sm text-secondary">{errorMessage}</p>
+          )}
           <Button
             className="relative bg-primary w-full rounded-2xl h-[60px] font-semibold text-lg text-white
               mt-[36px] disabled:text-customGray-1 disabled:bg-customWhite-3"
-            disabled={!password || loading}
+            disabled={
+              !password ||
+              !newConfirmPassword ||
+              !newPassword ||
+              loading ||
+              !!errors.password ||
+              !!errors.newPassword ||
+              !!errors.newConfirmPassword
+            }
             type="submit"
           >
             확인하기

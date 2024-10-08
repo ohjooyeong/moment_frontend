@@ -9,7 +9,7 @@ const ProfileConfirmMain = () => {
 
   return (
     <div className="flex-col justify-around w-full">
-      <PageHeader title="비밀번호 확인" handleRoutePrev={() => router.back()} />
+      <PageHeader title="비밀번호 확인" toLink="/mypage/profile-setting" />
 
       <ProfileConfirmPassword
         handleClickNext={() => router.replace('/mypage/profile-info')}
