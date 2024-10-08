@@ -1,4 +1,4 @@
-import { memberApis } from '@/services/members';
+import { authApis } from '@/services/auth';
 import { useMutation } from '@tanstack/react-query';
 
 type FindPassword = {
@@ -10,7 +10,7 @@ export default function useFindPassword() {
     mutationFn: async (context: FindPassword) => {
       const params = new URLSearchParams();
       params.append('email', context.email);
-      const { data } = await memberApis.post(`/v1/members/reset-password`, '', {
+      const { data } = await authApis.post(`/v1/auth/reset-password`, '', {
         params,
       });
       return data;

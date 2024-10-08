@@ -1,4 +1,4 @@
-import { memberApis } from '@/services/members';
+import { authApis } from '@/services/auth';
 import { useMutation } from '@tanstack/react-query';
 
 type Signin = {
@@ -9,7 +9,7 @@ type Signin = {
 export default function useSignin() {
   const mutate = useMutation({
     mutationFn: async (context: Signin) => {
-      const { data } = await memberApis.post(`/v1/members/login`, context);
+      const { data } = await authApis.post(`/v1/auth/login`, context);
       return data;
     },
   });

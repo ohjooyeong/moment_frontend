@@ -1,4 +1,4 @@
-import { memberApis } from '@/services/members';
+import { authApis } from '@/services/auth';
 import { useMutation } from '@tanstack/react-query';
 
 type SendEmail = {
@@ -14,7 +14,7 @@ export default function useVerifyEmail() {
       params.append('email', email);
       params.append('code', code);
 
-      const { data } = await memberApis.get(`/v1/members/verify-email`, {
+      const { data } = await authApis.get(`/v1/auth/verify-email`, {
         params,
       });
       return data;

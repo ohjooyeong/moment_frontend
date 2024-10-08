@@ -1,6 +1,6 @@
-import { memberApis } from '@/services/members';
 import { useMutation } from '@tanstack/react-query';
 import { FormDataType } from '../_type';
+import { authApis } from '@/services/auth';
 
 type Signup = {
   email: string;
@@ -13,7 +13,7 @@ type Signup = {
 export default function useSignup() {
   const mutate = useMutation({
     mutationFn: async (context: Signup) => {
-      const { data } = await memberApis.post(`/v1/members/join`, context);
+      const { data } = await authApis.post(`/v1/auth/join`, context);
       return data;
     },
   });

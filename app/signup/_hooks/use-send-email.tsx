@@ -1,4 +1,4 @@
-import { memberApis } from '@/services/members';
+import { authApis } from '@/services/auth';
 import { useMutation } from '@tanstack/react-query';
 
 type SendEmail = {
@@ -8,8 +8,8 @@ type SendEmail = {
 export default function useSendEmail() {
   const mutate = useMutation({
     mutationFn: async (context: SendEmail) => {
-      const { data } = await memberApis.post(
-        `/v1/members/send-authentication-email`,
+      const { data } = await authApis.post(
+        `/v1/auth/send-authentication-email`,
         context,
       );
       return data;

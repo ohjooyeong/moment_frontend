@@ -21,4 +21,4 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export const memberApis = axiosInstance;
+export const authApis = axiosInstance;
